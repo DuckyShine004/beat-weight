@@ -1,0 +1,63 @@
+name: "Bug Report"
+description: Create a new ticket for a bug.
+title: "[BUG]: "
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: "Expected Behaviour"
+      description: Describe what is expected to happen
+      placeholder: Short and explicit description of what is expected to happen...
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: "Current Behaviour"
+      description: Describe what is currently happening instead
+      placeholder: Short and explicit description of what is currently happening instead...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Reproduction Steps"
+      description: Please outline the steps to reproduce the bug you have described
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots"
+      description: If applicable, add screenshots to help explain your problem
+      value: |
+        ![DESCRIPTION](LINK.png)
+      render: bash
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks
+      render: bash
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: "OS"
+      description: What is the impacted environment ?
+      multiple: true
+      options:
+        - Windows
+        - Linux
+        - Mac
+    validations:
+      required: false
