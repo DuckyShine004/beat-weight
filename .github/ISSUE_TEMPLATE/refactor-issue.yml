@@ -1,0 +1,30 @@
+name: "Refactor Code"
+description: Create a new ticket for refactoring code
+title: "[REFACTOR]: "
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "Summary"
+      description: Provide a brief explanation of what needs to be refactored
+      placeholder: Describe in a few lines what you are refactoring
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: "Motivation"
+      description: Provide a brief explanation of why the refactoring should be done
+      placeholder: Describe what problem it would solve by refactoring
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots"
+      description: If applicable, add screenshots to help explain your problem
+      value: |
+        ![DESCRIPTION](LINK.png)
+      render: bash
+    validations:
+      required: false
