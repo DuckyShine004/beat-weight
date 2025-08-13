@@ -3,7 +3,7 @@ using UnityEngine;
 public class BeatBlockMove : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public float moveSpeed = 50;
+    public float moveSpeed = 700;
     public float deadZone = -100;
     void Start()
     {
