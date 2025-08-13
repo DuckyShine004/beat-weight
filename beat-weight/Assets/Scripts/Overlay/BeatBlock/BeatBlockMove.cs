@@ -4,6 +4,7 @@ public class BeatBlockMove : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float moveSpeed = 50;
+    public float deadZone = -100;
     void Start()
     {
 
@@ -13,5 +14,9 @@ public class BeatBlockMove : MonoBehaviour
     void Update()
     {
         transform.position += moveSpeed * Time.deltaTime * Vector3.down;
+        if (transform.position.y < deadZone)
+        {
+            Destroy(gameObject);
+        }
     }
 }
