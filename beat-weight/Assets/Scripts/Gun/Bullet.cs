@@ -4,19 +4,9 @@ public class Bullet : MonoBehaviour
 {
     public float lifeTime = 3.0f;
 
-    private void Update()
+    private void OnEnable()
     {
-        BulletTimeToLive();
-    }
-
-    private void BulletTimeToLive()
-    {
-        lifeTime -= Time.deltaTime;
-
-        if (lifeTime < 0)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject, lifeTime);
     }
 
     // Collision detection here

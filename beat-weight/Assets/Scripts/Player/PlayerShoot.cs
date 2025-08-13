@@ -2,18 +2,13 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
-    public Transform orientation;
+    public Transform muzzle;
 
     [Header("Model")]
     public GameObject bulletModel;
 
+    public float bulletSpeed;
 
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -22,8 +17,17 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    // Currently just shoot to centre of screen
     private void Shoot()
     {
-        GameObject bullet = Instantiate(bulletModel, transform.position, Quaternion.identity);
+        Vector2 screenCentre = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+
+        Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+
+        Vector3 bulletDirection = ray.direction.normalized;
+
+        GameObject bullet = Instantiate(bulletModel, muzzle.position, Quaternion.LookRotation(bulletDirection));
+
+        bullet.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletSpeed, ForceMode.Impulse);
     }
 }
