@@ -16,7 +16,12 @@ public class BeatBlockMove : MonoBehaviour
         transform.position += moveSpeed * Time.deltaTime * Vector3.down;
         if (transform.position.y < deadZone)
         {
-            Destroy(gameObject);
+            KillBlock();
         }
+    }
+
+    public void KillBlock()
+    {
+        Destroy(gameObject);
     }
 }
