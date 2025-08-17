@@ -14,9 +14,19 @@ public class EnemyAI : MonoBehaviour
         rigidBody.freezeRotation = true;
     }
 
+    private void Update()
+    {
+        RotateToPlayer();
+    }
+
     private void FixedUpdate()
     {
         MoveToPlayer();
+    }
+
+    private void RotateToPlayer()
+    {
+        transform.LookAt(player.transform);
     }
 
     private void MoveToPlayer()
