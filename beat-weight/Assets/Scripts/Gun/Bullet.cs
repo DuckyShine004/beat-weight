@@ -12,6 +12,15 @@ public class Bullet : MonoBehaviour
     // Collision detection here
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
 
+            EnemyAI enemyAI = other.GetComponent<EnemyAI>();
+
+            enemyAI.TakeDamage();
+
+            print("Collided with enemy");
+        }
     }
 }

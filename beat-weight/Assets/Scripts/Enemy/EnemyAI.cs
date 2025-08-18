@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    [Header("Enemy attributes")]
     public float moveSpeed;
+    public float health;
 
     public GameObject player;
 
@@ -27,6 +29,21 @@ public class EnemyAI : MonoBehaviour
     private void RotateToPlayer()
     {
         transform.LookAt(player.transform);
+    }
+
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
+    }
+
+    public void TakeDamage()
+    {
+        --health;
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void MoveToPlayer()

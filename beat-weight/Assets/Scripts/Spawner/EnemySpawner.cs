@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy Attributes")]
+    [Header("Spawner Attributes")]
     public float spawnRate;
 
     public GameObject enemyModel;
@@ -19,7 +19,9 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemy = Instantiate(enemyModel, transform.position, Quaternion.identity);
 
-        enemy.GetComponent<EnemyAI>().player = player;
+        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+
+        enemyAI.SetPlayer(player);
     }
 
     private void Update()
