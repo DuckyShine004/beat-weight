@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hit
   - BeatBlock
+  - Enemy
   layers:
   - Default
   - TransparentFX
