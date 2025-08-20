@@ -50,6 +50,8 @@ public class EnemyAI : MonoBehaviour
     {
         print(player.transform.position);
         Vector3 direction = (player.transform.position - transform.position).normalized;
+        direction.Set(direction.x, 0, direction.z);
+        direction.Normalize();
         Vector3 velocity = moveSpeed * direction;
 
         rigidBody.linearVelocity = velocity;
