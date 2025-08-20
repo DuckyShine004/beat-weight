@@ -1404,6 +1404,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4002300673427624846, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
+      propertyPath: m_Mass
+      value: 0.0000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002300673427624846, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
@@ -1461,6 +1465,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7288135681753849858, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7288135681753849858, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
+      propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7290497940596741055, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
