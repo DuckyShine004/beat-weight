@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class BeatBlockSpawner : MonoBehaviour
 {
-    public GameObject beatBlock;
-    public float spawnRate = 2;
-    private float timer = 0;
+    public GameObject upBeatBlock;
+    public GameObject downBeatBlock;
+    public float spawnRate;
+    public float timer;
+    private bool toggle = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SpawnBeatBlock();
     }
 
     // Update is called once per frame
@@ -29,6 +30,14 @@ public class BeatBlockSpawner : MonoBehaviour
 
     private void SpawnBeatBlock()
     {
-        Instantiate(beatBlock, transform.position, transform.rotation, transform);
+        if (toggle)
+        {
+            Instantiate(upBeatBlock, transform.position, transform.rotation, transform);
+        }
+        else
+        {
+            Instantiate(downBeatBlock, transform.position, transform.rotation, transform);
+        }
+        toggle = !toggle;
     }
 }

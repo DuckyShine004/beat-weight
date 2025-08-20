@@ -12,14 +12,17 @@ public class TargetScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        temp = GameObject.FindGameObjectWithTag("Hit").GetComponent<Temp>();
-        //beatBlock = GameObject.FindGameObjectWithTag("BeatBlock").GetComponent<BeatBlockMove>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isInside && Input.GetKeyDown(KeyCode.Space) == true)
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Left click detected");
+        }
+
+        if (isInside && Input.GetMouseButtonDown(0) == true)
         {
             temp.addScore();
             if (beatBlock != null)
