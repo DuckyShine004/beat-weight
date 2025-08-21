@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7055742358551313873}
   - component: {fileID: 7792126857238597003}
   - component: {fileID: 1727814643228635620}
+  - component: {fileID: 3553503516939388434}
   m_Layer: 0
   m_Name: MaleCustomer
   m_TagString: Enemy
@@ -98,6 +99,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.44, y: 1.75, z: 0.33}
   m_Center: {x: 0, y: 0.88, z: 0}
+--- !u!95 &3553503516939388434
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723041294572132217}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb9dcbfa45e69d14ab71dee057b93e9a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 1
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2823471736830441030
 PrefabInstance:
   m_ObjectHideFlags: 0
