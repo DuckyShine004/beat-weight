@@ -27,24 +27,21 @@ public class ControllerHeightsToDots : MonoBehaviour
         if (Input.GetKeyDown(setTopKey)) SetTopToCurrent();
         if (Input.GetKeyDown(setBottomKey)) SetBottomToCurrent();
 
-        // Move any assigned dots to same Y
-        float halfH = barArea.rect.height * 0.5f;
-        float y = 0f;
-        if (leftDot) SetDotY(leftDot, y);
-        if (rightDot) SetDotY(rightDot, y);
+        if (leftDot && leftControllerVisual) SetDotY(leftDot, leftControllerVisual.position.y);
+        if (rightDot && rightControllerVisual) SetDotY(rightDot, rightControllerVisual.position.y);
     }
 
     // ----- Calibration -----
     public void SetTopToCurrent()
     {
         if (leftControllerVisual)
-            _max = leftControllerVisual.position.y + leftDot.rect.height;
+            _max = leftControllerVisual.position.y;
     }
 
     public void SetBottomToCurrent()
     {
         if (leftControllerVisual)
-            _min = leftControllerVisual.position.y - leftDot.rect.height;
+            _min = leftControllerVisual.position.y;
     }
 
     [ContextMenu("Reset Calibration")]
@@ -64,10 +61,25 @@ public class ControllerHeightsToDots : MonoBehaviour
 
     private static bool IsFinite(float f) => !float.IsNaN(f) && !float.IsInfinity(f);
 
-    private static void SetDotY(RectTransform dot, float yLocal)
+    private void SetDotY(RectTransform dot, float controllerWorldY)
     {
+        if (!IsFinite(_min) || !IsFinite(_max))
+        {
+            var p0 = dot.anchoredPosition;
+            p0.y = 0f;
+            dot.anchoredPosition = p0;
+            return;
+        }
+
+        // Normalize world meters -> 0..1 based on calibrated min/max
+        float t = Mathf.Clamp01(Mathf.InverseLerp(_min, _max, controllerWorldY));
+
+        // Map 0..1 to barArea's pixel height
+        float halfH = barArea.rect.height * 0.5f;
+        float yLocal = Mathf.Lerp(-halfH, +halfH, t);
+
         var p = dot.anchoredPosition;
-        p.y = yLocal;
+        p.y = yLocal;                   // dot MUST be a child of barArea
         dot.anchoredPosition = p;
     }
 }
