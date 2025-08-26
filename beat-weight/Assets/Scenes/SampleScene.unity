@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 80363470}
-  mainSong: {fileID: 8300000, guid: 0a2471819067eec48aad68ca8cb7f2f5, type: 3}
+  mainSong: {fileID: 8300000, guid: a8fb4b2fb3e1b8849a2eda7451d6d243, type: 3}
 --- !u!1 &84039242 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1031079171740948694, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
@@ -845,8 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upBeatBlock: {fileID: 872761619215769272, guid: b2bf063299cc20f4e9629c00f78999c4, type: 3}
   downBeatBlock: {fileID: 872761619215769272, guid: 6d12b8a9bbdb13547a1dffc07facf892, type: 3}
-  spawnRate: 1.902
-  timer: 0.5
+  spawnRate: 1.951
+  timer: 1.951
 --- !u!1 &837949475
 GameObject:
   m_ObjectHideFlags: 0
