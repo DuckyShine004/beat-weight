@@ -3,10 +3,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TargetScript : MonoBehaviour
+public class LargeTargetScript : MonoBehaviour
 {
 
-    public bool isInside = false;
+    public TargetScript mainTarget;
+    public bool isInsideOuter = false;
     public Temp temp;
     public BeatBlockMove beatBlock;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,9 +23,9 @@ public class TargetScript : MonoBehaviour
             Debug.Log("Left click detected");
         }
 
-        if (isInside && Input.GetMouseButtonDown(0) == true)
+        if (isInsideOuter && !mainTarget.isInside && Input.GetMouseButtonDown(0) == true)
         {
-            temp.addScore(2);
+            temp.addScore(1);
             if (beatBlock != null)
             {
                 beatBlock.KillBlock();
@@ -35,13 +36,13 @@ public class TargetScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        isInside = true;
+        isInsideOuter = true;
         beatBlock = collision.GetComponent<BeatBlockMove>();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isInside = false;
+        isInsideOuter = false;
     }
 
 

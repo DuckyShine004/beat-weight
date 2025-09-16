@@ -7,9 +7,9 @@ public class Temp : MonoBehaviour
     public Text scoreText;
 
     [ContextMenu("Increase score")]
-    public void addScore()
+    public void addScore(int score)
     {
-        playerScore += 1;
+        playerScore += score;
         scoreText.text = playerScore.ToString();
     }
 }
