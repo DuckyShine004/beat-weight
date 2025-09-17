@@ -10,6 +10,7 @@ public class LargeTargetScript : MonoBehaviour
     public bool isInsideOuter = false;
     public Temp temp;
     public BeatBlockMove beatBlock;
+    public HitTextScript hitTextScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -26,6 +27,7 @@ public class LargeTargetScript : MonoBehaviour
         if (isInsideOuter && !mainTarget.isInside && Input.GetMouseButtonDown(0) == true)
         {
             temp.addScore(1);
+            hitTextScript.ShowText("Early");
             if (beatBlock != null)
             {
                 beatBlock.KillBlock();

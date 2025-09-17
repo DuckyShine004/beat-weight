@@ -9,6 +9,7 @@ public class TargetScript : MonoBehaviour
     public bool isInside = false;
     public Temp temp;
     public BeatBlockMove beatBlock;
+    public HitTextScript hitTextScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,6 +26,7 @@ public class TargetScript : MonoBehaviour
         if (isInside && Input.GetMouseButtonDown(0) == true)
         {
             temp.addScore(2);
+            hitTextScript.ShowText("Perfect");
             if (beatBlock != null)
             {
                 beatBlock.KillBlock();
