@@ -8,6 +8,8 @@ public class VRTriggerShoot : MonoBehaviour
     public GameObject bulletPrefab;
     public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
 
+    public DataManager dataManager;
+
     [Header("Ballistics")]
     public float bulletSpeed = 20f;
     public float fallbackDistance = 50f;
@@ -40,8 +42,9 @@ public class VRTriggerShoot : MonoBehaviour
         float value = _triggerAction.ReadValue<float>();
         bool isPressed = value >= fireThreshold;
 
-        if (isPressed && !_wasPressed)
+        if (isPressed && !_wasPressed && dataManager.ammo > 0)
         {
+            dataManager.ammo--;
             ShootAlongLine();
         }
 

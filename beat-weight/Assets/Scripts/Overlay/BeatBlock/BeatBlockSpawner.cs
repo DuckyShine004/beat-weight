@@ -6,11 +6,14 @@ public class BeatBlockSpawner : MonoBehaviour
     public GameObject upBeatBlock;
     public GameObject downBeatBlock;
     public float spawnRate;
-    public float timer;
+    public float delay;
+    private float timer;
+
     private bool toggle = true;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        timer = delay;
     }
 
     // Update is called once per frame

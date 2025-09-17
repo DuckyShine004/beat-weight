@@ -15,13 +15,17 @@ public class visualBPMManager : MonoBehaviour
     public float holdbeatsTop = 0f; // Number of beats to hold the position
     public float holdbeatsBottom = 0f; // Number of beats to hold the position
 
+    public float timer = 0f;
+
+    public bool visualAdjusted = false;
+
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        timer = 0f;
     }
 
     // Update is called once per frame
@@ -30,7 +34,7 @@ public class visualBPMManager : MonoBehaviour
         if (bpm <= 0 || barArea == null || dot == null) return;
 
         float beatInterval = 60f / bpm; // Time for one beat in seconds
-        float timeSinceStart = Time.time + offset; // Adjusted time with offset
+        float timeSinceStart = timer + offset; // Adjusted time with offset
         float totalBeats = beatUp + beatDown + holdbeatsTop + holdbeatsBottom;
         float currentBeatTime = timeSinceStart % (totalBeats * beatInterval);
         float beatPosition = 0f;
@@ -57,9 +61,11 @@ public class visualBPMManager : MonoBehaviour
         }
 
         float barHeight = barArea.rect.height;
-        barHeight -= dot.rect.height; // Adjust for dot height
+        if (visualAdjusted)
+            barHeight -= dot.rect.height; // Adjust for dot height
         float dotYPosition = dot.anchoredPosition.y;
         dotYPosition = Mathf.Lerp(-barHeight / 2, barHeight / 2, beatPosition);
         dot.anchoredPosition = new Vector2(dot.anchoredPosition.x, dotYPosition);
+        timer += Time.deltaTime;
     }
 }
