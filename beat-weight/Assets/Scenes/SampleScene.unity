@@ -1628,11 +1628,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1156998028372246169, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -42.3
+      value: -44.9
       objectReference: {fileID: 0}
     - target: {fileID: 1156998028372246169, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -206.8
+      value: -203.4
       objectReference: {fileID: 0}
     - target: {fileID: 1156998028372246169, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1650,17 +1650,25 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1383960897}
+    - target: {fileID: 1546004057464790789, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
+      propertyPath: canvasGroup
+      value: 
+      objectReference: {fileID: 1756056655}
+    - target: {fileID: 3037796679471106304, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6626514908684198242, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_text
       value: TESTING
       objectReference: {fileID: 0}
     - target: {fileID: 6626514908684198242, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_fontSize
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6626514908684198242, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_fontSizeBase
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7569975610184531403, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
       propertyPath: m_Name
@@ -1671,6 +1679,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
+--- !u!225 &1756056655 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3037796679471106304, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
+  m_PrefabInstance: {fileID: 1756056654}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1923482817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4702307752625713600, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
