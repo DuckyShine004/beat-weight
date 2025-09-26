@@ -19,8 +19,6 @@ public class Bullet : MonoBehaviour
             EnemyAI enemyAI = other.GetComponent<EnemyAI>();
 
             enemyAI.TakeDamage();
-
-            print("Collided with enemy");
         }
     }
 }
