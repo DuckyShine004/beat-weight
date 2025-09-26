@@ -3,12 +3,20 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [Header("Enemy attributes")]
+    public float maxEnemyToPlayerDistance;
+
     public float moveSpeed;
     public float health;
+
+    public float rayLength;
+
+    public LayerMask enemyMask;
 
     public GameObject player;
 
     private Rigidbody rigidBody;
+
+    // private const float MIN_
 
     private void Start()
     {
@@ -28,7 +36,11 @@ public class EnemyAI : MonoBehaviour
 
     private void RotateToPlayer()
     {
-        transform.LookAt(player.transform);
+        Vector3 lookPosition = player.transform.position;
+
+        lookPosition.y = transform.position.y;
+
+        transform.LookAt(lookPosition);
     }
 
     public void SetPlayer(GameObject player)
@@ -46,15 +58,40 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private bool IsEnemyCloseToPlayer(Vector3 toPlayer)
+    {
+        return toPlayer.magnitude < maxEnemyToPlayerDistance;
+    }
+
+    private bool IsEnemyInFront()
+    {
+        Collider collider = GetComponent<Collider>();
+
+        Vector3 origin = collider.bounds.center;
+
+        Vector3 direction = transform.forward;
+
+        Ray ray = new Ray(origin, direction);
+
+        Debug.DrawRay(origin, direction * rayLength, Color.red);
+
+        return Physics.Raycast(ray, out RaycastHit hit, rayLength, enemyMask);
+    }
+
     private void MoveToPlayer()
     {
-        print(player.transform.position);
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        direction.Set(direction.x, 0, direction.z);
-        direction.Normalize();
-        Vector3 velocity = moveSpeed * direction;
+        Vector3 toPlayer = player.transform.position - transform.position;
+
+        toPlayer.Set(0, 0, toPlayer.z);
+
+        Vector3 directionToPlayer = toPlayer.normalized;
+        Vector3 velocity = moveSpeed * directionToPlayer;
+
+        if (IsEnemyCloseToPlayer(toPlayer) || IsEnemyInFront())
+        {
+            velocity = Vector3.zero;
+        }
 
         rigidBody.linearVelocity = velocity;
-        Debug.DrawRay(transform.position, direction, Color.red);
     }
 }
