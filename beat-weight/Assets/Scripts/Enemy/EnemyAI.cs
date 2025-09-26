@@ -3,6 +3,8 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [Header("Enemy attributes")]
+    public float maxEnemyToPlayerDistance;
+
     public float moveSpeed;
     public float health;
 
@@ -46,15 +48,24 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private bool IsEnemyCloseToPlayer(Vector3 toPlayer)
+    {
+        return toPlayer.magnitude < maxEnemyToPlayerDistance;
+    }
+
     private void MoveToPlayer()
     {
-        print(player.transform.position);
-        Vector3 direction = (player.transform.position - transform.position).normalized;
-        direction.Set(direction.x, 0, direction.z);
-        direction.Normalize();
-        Vector3 velocity = moveSpeed * direction;
+        Vector3 toPlayer = player.transform.position - transform.position;
+        Vector3 directionToPlayer = toPlayer.normalized;
+
+        Vector3 velocity = moveSpeed * directionToPlayer;
+
+        if (IsEnemyCloseToPlayer(toPlayer))
+        {
+            velocity = Vector3.zero;
+        }
 
         rigidBody.linearVelocity = velocity;
-        Debug.DrawRay(transform.position, direction, Color.red);
+        Debug.DrawRay(transform.position, directionToPlayer, Color.red);
     }
 }
