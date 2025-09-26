@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour
 
     private Rigidbody rigidBody;
 
+    // private const float MIN_
+
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -34,11 +36,11 @@ public class EnemyAI : MonoBehaviour
 
     private void RotateToPlayer()
     {
-        transform.LookAt(player.transform);
+        Vector3 lookPosition = player.transform.position;
 
-        Quaternion rotation = player.transform.rotation;
+        lookPosition.y = transform.position.y;
 
-        transform.rotation.Set(0, rotation.y, 0, rotation.w);
+        transform.LookAt(lookPosition);
     }
 
     public void SetPlayer(GameObject player)
@@ -61,13 +63,19 @@ public class EnemyAI : MonoBehaviour
         return toPlayer.magnitude < maxEnemyToPlayerDistance;
     }
 
-    private bool IsEnemyInFront(Vector3 directionToPlayer)
+    private bool IsEnemyInFront()
     {
-        Ray ray = new Ray(transform.position, directionToPlayer);
+        Collider collider = GetComponent<Collider>();
 
-        Debug.DrawRay(transform.position, directionToPlayer * rayLength, Color.red);
+        Vector3 origin = collider.bounds.center;
 
-        return Physics.Raycast(ray, rayLength, enemyMask);
+        Vector3 direction = transform.forward;
+
+        Ray ray = new Ray(origin, direction);
+
+        Debug.DrawRay(origin, direction * rayLength, Color.red);
+
+        return Physics.Raycast(ray, out RaycastHit hit, rayLength, enemyMask);
     }
 
     private void MoveToPlayer()
@@ -79,13 +87,11 @@ public class EnemyAI : MonoBehaviour
         Vector3 directionToPlayer = toPlayer.normalized;
         Vector3 velocity = moveSpeed * directionToPlayer;
 
-        if (IsEnemyCloseToPlayer(toPlayer) || IsEnemyInFront(directionToPlayer))
+        if (IsEnemyCloseToPlayer(toPlayer) || IsEnemyInFront())
         {
             velocity = Vector3.zero;
         }
 
         rigidBody.linearVelocity = velocity;
-
-        // Debug.DrawRay(transform.position, directionToPlayer, Color.red);
     }
 }

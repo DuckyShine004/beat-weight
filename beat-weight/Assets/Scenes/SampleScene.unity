@@ -1284,6 +1284,7 @@ MonoBehaviour:
   spawnRate: 3
   enemyModel: {fileID: 727324484070230614, guid: 182b93d7832d1294ba644bca897e9221, type: 3}
   player: {fileID: 84039242}
+  enemyPadding: 0
 --- !u!114 &1383960895 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1546004057464790789, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}
@@ -1448,7 +1449,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
