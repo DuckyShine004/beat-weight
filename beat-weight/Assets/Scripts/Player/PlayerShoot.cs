@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [Header("Camera")]
+    public Camera playerCamera;
+
     public Transform muzzle;
 
     [Header("Model")]
@@ -20,14 +23,24 @@ public class PlayerShoot : MonoBehaviour
     // Currently just shoot to centre of screen
     private void Shoot()
     {
-        Vector2 screenCentre = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        // Vector2 screenCentre = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
 
-        Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+        // Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
 
         Vector3 bulletDirection = ray.direction.normalized;
 
-        GameObject bullet = Instantiate(bulletModel, muzzle.position, Quaternion.LookRotation(bulletDirection));
+        Quaternion bulletRotation = Quaternion.LookRotation(bulletDirection);
 
-        bullet.GetComponent<Rigidbody>().AddForce(bulletDirection * bulletSpeed, ForceMode.Impulse);
+        GameObject bullet = Instantiate(bulletModel, muzzle.position, bulletRotation);
+
+        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+
+        bulletRigidbody.linearVelocity = bulletDirection * bulletSpeed;
+
+        // bullet
+        //     .GetComponent<Rigidbody>()
+        //     .AddForce(bulletDirection * bulletSpeed, ForceMode.Impulse);
     }
 }
