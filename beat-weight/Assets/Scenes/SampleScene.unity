@@ -6399,7 +6399,7 @@ Transform:
   m_GameObject: {fileID: 1283642430}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.693, z: -8.489}
+  m_LocalPosition: {x: 0, y: 0, z: -8.489}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6420,7 +6420,6 @@ MonoBehaviour:
   spawnRate: 3
   enemyModel: {fileID: 727324484070230614, guid: 182b93d7832d1294ba644bca897e9221, type: 3}
   player: {fileID: 84039242}
-  enemyPadding: 0
 --- !u!114 &1383960895 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1546004057464790789, guid: 5ed6cbbe84989a24ba57feb50210bc19, type: 3}

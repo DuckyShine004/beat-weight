@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -8,8 +7,6 @@ public class EnemySpawner : MonoBehaviour
 
     public GameObject enemyModel;
     public GameObject player;
-
-    public float enemyPadding;
 
     private float timer;
 
@@ -27,34 +24,6 @@ public class EnemySpawner : MonoBehaviour
         enemyAI.SetPlayer(player);
     }
 
-    private void UpdateEnemyPositions()
-    {
-        // GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        //
-        // // Sort the array by distance to player
-        // Array.Sort(
-        //     enemies,
-        //     (a, b) =>
-        //         Vector3
-        //             .Distance(player.transform.position, a.transform.position)
-        //             .CompareTo(Vector3.Distance(player.transform.position, b.transform.position))
-        // );
-        //
-        // if (enemies.Length == 0) {
-        //     return;
-        // }
-        //
-        // BoxCollider collider = enemies[0].GetComponent<BoxCollider>();
-        //
-        // float enemyOffset = collider.size.z + enemyPadding;
-        //
-        // // For each of those enemies, displace manually
-        // for (int i = 1; i < enemies.Length; ++i)
-        // {
-        //     if (enemies[i-1])
-        // }
-    }
-
     private void Update()
     {
         timer += Time.deltaTime;
@@ -65,7 +34,5 @@ public class EnemySpawner : MonoBehaviour
 
             timer = 0.0f;
         }
-
-        UpdateEnemyPositions();
     }
 }

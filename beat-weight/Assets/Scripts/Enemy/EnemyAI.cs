@@ -16,8 +16,6 @@ public class EnemyAI : MonoBehaviour
 
     private Rigidbody rigidBody;
 
-    // private const float MIN_
-
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
