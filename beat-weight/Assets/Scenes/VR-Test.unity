@@ -1621,7 +1621,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &344874690
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7559,8 +7559,8 @@ MonoBehaviour:
   barArea: {fileID: 663472614}
   watchedDot: {fileID: 1426787103}
   beatDot: {fileID: 2102479957}
-  bpm: 126
-  offset: -2.07
+  bpm: 124
+  offset: -2.4
   visualAdjusted: 0
   beatUp: 4
   beatDown: 4
@@ -8154,6 +8154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5774765545083889162, guid: 3919be3885e570942babf327318097aa, type: 3}
+      propertyPath: gameScript
+      value: 
+      objectReference: {fileID: 2048453581}
     - target: {fileID: 5774765545083889162, guid: 3919be3885e570942babf327318097aa, type: 3}
       propertyPath: believerClip
       value: 
