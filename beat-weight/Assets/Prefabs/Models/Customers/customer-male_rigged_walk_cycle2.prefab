@@ -281,6 +281,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   player: {fileID: 1031079171740948694, guid: 7f5c75b0e896c59a3912e7190881a1ec, type: 3}
+  deathEffect: {fileID: 6492429895777560789, guid: 1ed76536e7cf8cc27a86b8e89df1586d, type: 3}
 --- !u!54 &6751471747944202924
 Rigidbody:
   m_ObjectHideFlags: 0
