@@ -1,4 +1,7 @@
+using Microsoft.Unity.VisualStudio.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CurlHUDAnimator : MonoBehaviour
 {
@@ -7,8 +10,11 @@ public class CurlHUDAnimator : MonoBehaviour
     public string stateName = "New Animation";
 
     [Header("Tracked points")]
-    public Transform shoulder;           
-    public Transform wristOrController;  
+    public Transform shoulder;
+    public Transform wristOrController;
+    public Collider2D sliderCollider; // Optional: if you want to enable/disable a slider collider
+    public UnityEngine.UI.Image BicepImage;
+    public Color ActiveColor;
 
 
     [Header("Vertical calibration (local Y relative to shoulder)")]
@@ -34,6 +40,7 @@ public class CurlHUDAnimator : MonoBehaviour
     {
         // Initialize lastLocalY from current pose
         _lastLocalY = shoulder.InverseTransformPoint(wristOrController.position).y;
+        ActiveColor.a = 1;
     }
 
     void Update()
@@ -75,6 +82,7 @@ public class CurlHUDAnimator : MonoBehaviour
 
         if (logDebug)
             Debug.Log($"half={_half} vy={vy:F3} y={y:F3} p={p:F2} nt={_nt:F3}");
+
     }
 
     static float Remap01(float a, float b, float v)
@@ -82,4 +90,18 @@ public class CurlHUDAnimator : MonoBehaviour
         if (Mathf.Abs(b - a) < 1e-6f) return 0f;
         return Mathf.Clamp01((v - a) / (b - a));
     }
+
+    // void OnTriggerEnter2D(Collider2D collider)
+    // {
+
+    //     BicepImage.color = ActiveColor;
+    //     Debug.Log("Trigger Entered");
+    // }
+    
+    // private void OnTriggerExit2D(Collider2D collision)
+    // {
+    //     Color c = ActiveColor;
+    //     c.a = 0;
+    //     BicepImage.color = c;
+    // }
 }
