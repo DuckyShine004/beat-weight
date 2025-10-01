@@ -20,7 +20,6 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    // Currently just shoot to centre of screen
     private void Shoot()
     {
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
