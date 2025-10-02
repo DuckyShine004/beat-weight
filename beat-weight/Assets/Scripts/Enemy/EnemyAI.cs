@@ -14,6 +14,8 @@ public class EnemyAI : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject deathEffect;
+
     private Rigidbody rigidBody;
 
     private void Start()
@@ -52,8 +54,15 @@ public class EnemyAI : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            OnDeath();
         }
+    }
+
+    private void OnDeath()
+    {
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
     }
 
     private bool IsEnemyCloseToPlayer(Vector3 toPlayer)
