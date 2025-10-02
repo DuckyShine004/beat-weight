@@ -3264,6 +3264,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2069828540}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &900956852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3814,7 +3826,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2069828538}
         m_TargetAssemblyTypeName: ControllerHeightsToDots, Assembly-CSharp
         m_MethodName: SetBottomToCurrent
         m_Mode: 1
@@ -3874,7 +3886,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1081242364}
   - component: {fileID: 1081242365}
-  - component: {fileID: 1081242366}
   m_Layer: 0
   m_Name: LeftLift
   m_TagString: Untagged
@@ -3917,69 +3928,6 @@ MonoBehaviour:
   fallbackDistance: 50
   rotationForce: 113
   fireThreshold: 0.75
---- !u!114 &1081242366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081242363}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barArea: {fileID: 663472614}
-  watchedDot: {fileID: 1426787103}
-  beatDot: {fileID: 2102479957}
-  bpm: 126
-  offset: -2.07
-  visualAdjusted: 0
-  beatUp: 4
-  beatDown: 4
-  holdbeatsTop: 0
-  holdbeatsBottom: 0
-  handAnchor: {fileID: 472026225}
-  topVariant: {fileID: 325266278}
-  bottomVariant: {fileID: 618500295}
-  topThreshold: 0.8
-  bottomThreshold: 0.2
-  hysteresis: 0.05
-  beatTolerance: 0.1
-  ammoCooldown: 1
-  useContinuousScoring: 0
-  usePerBeatScoring: 1
-  scoreWindow: 0.105
-  scoreRateAtPerfect: 10
-  scoreCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  pointsPerBeat: 5
-  perBeatWindow: 0.12
-  requireTopForPerBeat: 0
-  scoreThresholdForAmmo: 10
-  dataManager: {fileID: 393627665}
 --- !u!850595691 &1171243431
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -4138,19 +4086,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handManager: {fileID: 0}
+  left:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
+  right:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
   barArea: {fileID: 663472614}
-  watchedDot: {fileID: 0}
   beatDot: {fileID: 0}
   bpm: 126
-  offset: -2.07
+  offset: 0
   visualAdjusted: 0
   beatUp: 4
   beatDown: 4
   holdbeatsTop: 0
   holdbeatsBottom: 0
-  handAnchor: {fileID: 0}
-  topVariant: {fileID: 0}
-  bottomVariant: {fileID: 0}
   topThreshold: 0.8
   bottomThreshold: 0.2
   hysteresis: 0.05
@@ -4964,7 +4919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1426787103
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5312,7 +5267,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2069828538}
         m_TargetAssemblyTypeName: ControllerHeightsToDots, Assembly-CSharp
         m_MethodName: SetTopToCurrent
         m_Mode: 1
@@ -5991,7 +5946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361703928652f4f7689e8edab3d4ae7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 10
+  spawnRate: 142.27
   enemyModel: {fileID: 5723041294572132217, guid: f0bcf6467a794430a88fdb60c8148cba, type: 3}
   player: {fileID: 60298369}
 --- !u!4 &1729317469
@@ -6241,7 +6196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1879461349
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7148,7 +7103,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2036790310}
   - component: {fileID: 2036790311}
-  - component: {fileID: 2036790312}
   m_Layer: 0
   m_Name: RightLift
   m_TagString: Untagged
@@ -7191,69 +7145,6 @@ MonoBehaviour:
   fallbackDistance: 50
   rotationForce: 113
   fireThreshold: 0.75
---- !u!114 &2036790312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036790309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barArea: {fileID: 663472614}
-  watchedDot: {fileID: 1879461349}
-  beatDot: {fileID: 2102479957}
-  bpm: 126
-  offset: -2.07
-  visualAdjusted: 0
-  beatUp: 4
-  beatDown: 4
-  holdbeatsTop: 0
-  holdbeatsBottom: 0
-  handAnchor: {fileID: 47430650}
-  topVariant: {fileID: 1914452002}
-  bottomVariant: {fileID: 1419874929}
-  topThreshold: 0.8
-  bottomThreshold: 0.2
-  hysteresis: 0.05
-  beatTolerance: 0.1
-  ammoCooldown: 1
-  useContinuousScoring: 0
-  usePerBeatScoring: 1
-  scoreWindow: 0.105
-  scoreRateAtPerfect: 10
-  scoreCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  pointsPerBeat: 5
-  perBeatWindow: 0.12
-  requireTopForPerBeat: 0
-  scoreThresholdForAmmo: 10
-  dataManager: {fileID: 393627665}
 --- !u!1 &2048453579
 GameObject:
   m_ObjectHideFlags: 0
@@ -7299,8 +7190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 393627665}
+  handManager: {fileID: 2069828537}
   ammoDependentObjects:
-  - {fileID: 1819439942}
   - {fileID: 973070042}
   - {fileID: 523008205}
   - {fileID: 804348351}
@@ -7310,7 +7201,10 @@ MonoBehaviour:
   - {fileID: 1903686515}
   - {fileID: 1918722107}
   - {fileID: 715369194}
-  noAmmoFallback: {fileID: 1728545680}
+  noAmmoFallbackLeft: {fileID: 1628667796}
+  oneAmmoFallbackLeft: {fileID: 1847736647}
+  noAmmoFallbackRight: {fileID: 1728545680}
+  oneAmmoFallbackRight: {fileID: 1819439942}
 --- !u!1 &2060916341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7415,6 +7309,7 @@ GameObject:
   - component: {fileID: 2069828539}
   - component: {fileID: 2069828538}
   - component: {fileID: 2069828537}
+  - component: {fileID: 2069828540}
   m_Layer: 0
   m_Name: HandManager
   m_TagString: Untagged
@@ -7441,22 +7336,22 @@ MonoBehaviour:
   - {fileID: 1728545680}
   - {fileID: 1819439942}
   - {fileID: 1819439942}
+  - {fileID: 1426787102}
   rightGameObjects:
   - {fileID: 1914452002}
   - {fileID: 1419874929}
   - {fileID: 1628667796}
   - {fileID: 1847736647}
   - {fileID: 1847736647}
+  - {fileID: 1879461348}
   leftScripts:
   - {fileID: 1908137197}
   - {fileID: 1908137195}
   - {fileID: 2036790311}
-  - {fileID: 1081242366}
   rightScripts:
   - {fileID: 1713603988}
   - {fileID: 1713603986}
   - {fileID: 1081242365}
-  - {fileID: 2036790312}
 --- !u!114 &2069828538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7471,6 +7366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftControllerVisual: {fileID: 472026225}
   rightControllerVisual: {fileID: 47430650}
+  handManager: {fileID: 2069828537}
   barArea: {fileID: 663472614}
   leftDot: {fileID: 1426787103}
   rightDot: {fileID: 1879461349}
@@ -7493,6 +7389,76 @@ Transform:
   - {fileID: 2036790310}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2069828540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069828536}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handManager: {fileID: 2069828537}
+  left:
+    handDot: {fileID: 1426787103}
+    handAnchor: {fileID: 1482062282}
+    topVariant: {fileID: 618500295}
+    bottomVariant: {fileID: 325266278}
+  right:
+    handDot: {fileID: 1879461349}
+    handAnchor: {fileID: 1227737823}
+    topVariant: {fileID: 1419874929}
+    bottomVariant: {fileID: 1914452002}
+  barArea: {fileID: 663472614}
+  beatDot: {fileID: 2102479957}
+  bpm: 126
+  offset: 0
+  visualAdjusted: 0
+  beatUp: 4
+  beatDown: 4
+  holdbeatsTop: 0
+  holdbeatsBottom: 0
+  topThreshold: 0.95
+  bottomThreshold: 0.06
+  hysteresis: 0.05
+  beatTolerance: 0.1
+  ammoCooldown: 1
+  useContinuousScoring: 0
+  usePerBeatScoring: 1
+  scoreWindow: 0.105
+  scoreRateAtPerfect: 10
+  scoreCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pointsPerBeat: 5
+  perBeatWindow: 0.069
+  requireTopForPerBeat: 0
+  scoreThresholdForAmmo: 10
+  dataManager: {fileID: 393627665}
 --- !u!1 &2102479956
 GameObject:
   m_ObjectHideFlags: 0

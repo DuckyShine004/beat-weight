@@ -2,9 +2,25 @@ using UnityEngine;
 
 public class BeatHandSyncController : MonoBehaviour
 {
+    [System.Serializable]
+    public class HandConfig
+    {
+        [Header("Input/Equip")]
+        public RectTransform handDot;     // controller dot for THIS hand
+        public Transform handAnchor;         // equip target for THIS hand
+        public GameObject topVariant;        // shown when in TOP zone for THIS hand
+        public GameObject bottomVariant;     // shown when in BOTTOM zone for THIS hand
+    }
+
+    [Header("Hand Selection")]
+    public HandManager handManager;           // assign your HandManager
+    public HandConfig left;
+    public HandConfig right;
+
+    private RectTransform watchedDot;   // the dot to watch (should match hand)
+    
     [Header("UI (Vertical Bar)")]
     public RectTransform barArea;
-    public RectTransform watchedDot;   // controller dot
     public RectTransform beatDot;      // animated BPM dot
 
     [Header("BPM Settings")]
@@ -18,10 +34,9 @@ public class BeatHandSyncController : MonoBehaviour
     public float holdbeatsTop = 0f;
     public float holdbeatsBottom = 0f;
 
-    [Header("Equip Targets")]
-    public Transform handAnchor;
-    public GameObject topVariant;
-    public GameObject bottomVariant;
+    private Transform handAnchor;
+    private GameObject topVariant;
+    private GameObject bottomVariant;
 
     [Header("Thresholds")]
     [Range(0f, 1f)] public float topThreshold = 0.80f;
@@ -64,7 +79,22 @@ public class BeatHandSyncController : MonoBehaviour
     private float _scoreSinceLastAmmo = 0f;
 
 
-    void Start() { _timer = 0f; }
+    void Start() { 
+        _timer = 0f;
+        if (handManager) {
+            if(handManager.activeHand == HandManager.Hand.Left) {
+                watchedDot = left.handDot;
+                handAnchor = left.handAnchor;
+                topVariant = left.topVariant;
+                bottomVariant = left.bottomVariant;
+            } else {
+                watchedDot = right.handDot;
+                handAnchor = right.handAnchor;
+                topVariant = right.topVariant;
+                bottomVariant = right.bottomVariant;
+            }
+        }
+     }
 
     void Update()
     {
