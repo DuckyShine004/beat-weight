@@ -6,7 +6,6 @@ public class BeatBlockSpawner : MonoBehaviour
     public GameObject upBeatBlock;
     public GameObject downBeatBlock;
     public float spawnRate;
-    public float bpm;
     public float delay;
     private float timer;
 
@@ -15,7 +14,6 @@ public class BeatBlockSpawner : MonoBehaviour
     void Start()
     {
         timer = delay;
-        spawnRate = (240f / bpm);
     }
 
     // Update is called once per frame
