@@ -8,6 +8,9 @@ public class VRTriggerShoot : MonoBehaviour
     public GameObject bulletPrefab;
     public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
 
+    [Header("Hand Manager")]
+    public HandManager handManager;
+
     public DataManager dataManager;
 
     [Header("Ballistics")]
@@ -24,8 +27,11 @@ public class VRTriggerShoot : MonoBehaviour
 
     private void OnEnable()
     {
-        _triggerAction = new InputAction("Trigger", binding: "<XRController>{RightHand}/trigger");
-        _triggerAction.AddBinding("<OculusTouchController>{RightHand}/trigger");
+        if (handManager.activeHand == HandManager.Hand.Left)
+            _triggerAction = new InputAction("Trigger", binding: "<XRController>{RightHand}/trigger");
+        else
+            _triggerAction = new InputAction("Trigger", binding: "<XRController>{LeftHand}/trigger");
+        
         _triggerAction.Enable();
     }
 
