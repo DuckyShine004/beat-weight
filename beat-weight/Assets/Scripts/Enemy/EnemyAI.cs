@@ -63,6 +63,13 @@ public class EnemyAI : MonoBehaviour
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
+
+        // Update game stats
+        GameObject gameStatsObject = GameObject.Find("GameStats");
+
+        GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
+
+        gameStatsPub.OnSuccessfulRep();
     }
 
     private bool IsEnemyCloseToPlayer(Vector3 toPlayer)

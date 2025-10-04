@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class GameStatsPub : MonoBehaviour
 {
+    [Header("Base game stats")]
     public float baseScore;
     public float baseMultiplier;
 
@@ -36,7 +37,7 @@ public class GameStatsPub : MonoBehaviour
 
     public void AddScore()
     {
-        score += baseScore * Mathf.Max(1, multiplier);
+        score += baseScore * multiplier;
 
         OnScoreChanged?.Invoke(score);
     }
@@ -52,21 +53,27 @@ public class GameStatsPub : MonoBehaviour
     {
         ++reps;
 
-        SetReps(0);
+        SetReps(reps);
     }
 
     private void SetScore(float score)
     {
+        this.score = score;
+
         OnScoreChanged?.Invoke(score);
     }
 
     private void SetMultiplier(float multiplier)
     {
+        this.multiplier = multiplier;
+
         OnMultiplierChanged?.Invoke(multiplier);
     }
 
     private void SetReps(int reps)
     {
+        this.reps = reps;
+
         OnRepsChanged?.Invoke(reps);
     }
 }
