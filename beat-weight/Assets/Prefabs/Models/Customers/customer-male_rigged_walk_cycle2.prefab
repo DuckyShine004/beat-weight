@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxEnemyToPlayerDistance: 3
-  moveSpeed: 3
+  moveSpeed: 2
   health: 1
   rayLength: 1
   enemyMask:
