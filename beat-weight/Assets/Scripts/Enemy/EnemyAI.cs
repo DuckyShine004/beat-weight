@@ -69,7 +69,7 @@ public class EnemyAI : MonoBehaviour
 
         GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
 
-        gameStatsPub.OnSuccessfulRep();
+        gameStatsPub.OnEnemyKilled();
     }
 
     private bool IsEnemyCloseToPlayer(Vector3 toPlayer)
