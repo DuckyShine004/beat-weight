@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Dialogue : MonoBehaviour
 {
+    [Header("Dialogue attributes")]
     public TextMeshProUGUI textComponent;
-
     public string[] lines;
-
     public float textSpeed;
+
+    [Header("Sound effect attributes")]
+    public AudioSource audioSource;
+    public AudioClip talkingClip;
 
     private int characterIndex;
 
@@ -48,6 +51,8 @@ public class Dialogue : MonoBehaviour
         foreach (char character in lines[characterIndex].ToCharArray())
         {
             textComponent.text += character;
+
+            audioSource.PlayOneShot(talkingClip);
 
             yield return new WaitForSeconds(textSpeed);
         }
