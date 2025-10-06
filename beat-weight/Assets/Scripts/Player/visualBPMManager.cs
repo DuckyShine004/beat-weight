@@ -2,9 +2,25 @@ using UnityEngine;
 
 public class BeatHandSyncController : MonoBehaviour
 {
+    [System.Serializable]
+    public class HandConfig
+    {
+        [Header("Input/Equip")]
+        public RectTransform handDot;     // controller dot for THIS hand
+        public Transform handAnchor;         // equip target for THIS hand
+        public GameObject topVariant;        // shown when in TOP zone for THIS hand
+        public GameObject bottomVariant;     // shown when in BOTTOM zone for THIS hand
+    }
+
+    [Header("Hand Selection")]
+    public HandManager handManager;           // assign your HandManager
+    public HandConfig left;
+    public HandConfig right;
+
+    private RectTransform watchedDot;   // the dot to watch (should match hand)
+    
     [Header("UI (Vertical Bar)")]
     public RectTransform barArea;
-    public RectTransform watchedDot;   // controller dot
     public RectTransform beatDot;      // animated BPM dot
 
     [Header("BPM Settings")]
@@ -18,10 +34,9 @@ public class BeatHandSyncController : MonoBehaviour
     public float holdbeatsTop = 0f;
     public float holdbeatsBottom = 0f;
 
-    [Header("Equip Targets")]
-    public Transform handAnchor;
-    public GameObject topVariant;
-    public GameObject bottomVariant;
+    private Transform handAnchor;
+    private GameObject topVariant;
+    private GameObject bottomVariant;
 
     [Header("Thresholds")]
     [Range(0f, 1f)] public float topThreshold = 0.80f;
@@ -64,7 +79,22 @@ public class BeatHandSyncController : MonoBehaviour
     private float _scoreSinceLastAmmo = 0f;
 
 
-    void Start() { _timer = 0f; }
+    void Start() { 
+        _timer = 0f;
+        if (handManager) {
+            if(handManager.activeHand == HandManager.Hand.Left) {
+                watchedDot = left.handDot;
+                handAnchor = left.handAnchor;
+                topVariant = left.topVariant;
+                bottomVariant = left.bottomVariant;
+            } else {
+                watchedDot = right.handDot;
+                handAnchor = right.handAnchor;
+                topVariant = right.topVariant;
+                bottomVariant = right.bottomVariant;
+            }
+        }
+     }
 
     void Update()
     {
@@ -108,7 +138,7 @@ public class BeatHandSyncController : MonoBehaviour
             float closeness = 1f - nd; // 1 at perfect
             float multiplier = Mathf.Clamp01(scoreCurve.Evaluate(closeness));
             float deltaScore = scoreRateAtPerfect * multiplier * Time.deltaTime;
-            if (deltaScore > 0f) AddScore(deltaScore);
+            if (deltaScore > 0f) AddScore();
         }
 
         // 6) PER-BEAT scoring (fires once each beat)
@@ -126,7 +156,7 @@ public class BeatHandSyncController : MonoBehaviour
                 float dist = Mathf.Abs(tWatched - tBeat);
                 if (passTopGate && dist <= perBeatWindow)
                 {
-                    AddScore(pointsPerBeat);
+                    AddScore();
                     _scoreSinceLastAmmo += pointsPerBeat;
                 }
                 _lastBeatIndex = currentBeatIndex;
@@ -228,28 +258,12 @@ public class BeatHandSyncController : MonoBehaviour
             pi.SetValue(dataManager, (int)pi.GetValue(dataManager) + amount);
     }
 
-    private void AddScore(float amount)
+    private void AddScore()
     {
-        if (!dataManager) return;
-        try
-        {
-            var miF = dataManager.GetType().GetMethod("AddScore", new[] { typeof(float) });
-            if (miF != null) { miF.Invoke(dataManager, new object[] { amount }); return; }
-            var miI = dataManager.GetType().GetMethod("AddScore", new[] { typeof(int) });
-            if (miI != null) { miI.Invoke(dataManager, new object[] { Mathf.RoundToInt(amount) }); return; }
-        }
-        catch { }
-        var fi = dataManager.GetType().GetField("score");
-        if (fi != null)
-        {
-            if (fi.FieldType == typeof(float)) { fi.SetValue(dataManager, (float)fi.GetValue(dataManager) + amount); return; }
-            if (fi.FieldType == typeof(int)) { fi.SetValue(dataManager, (int)fi.GetValue(dataManager) + Mathf.RoundToInt(amount)); return; }
-        }
-        var pi = dataManager.GetType().GetProperty("score");
-        if (pi != null && pi.CanRead && pi.CanWrite)
-        {
-            if (pi.PropertyType == typeof(float)) { pi.SetValue(dataManager, (float)pi.GetValue(dataManager) + amount); return; }
-            if (pi.PropertyType == typeof(int)) pi.SetValue(dataManager, (int)pi.GetValue(dataManager) + Mathf.RoundToInt(amount));
-        }
+        GameObject gameStatsObject = GameObject.Find("GameStats");
+
+        GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
+
+        gameStatsPub.OnSuccessfulRep();
     }
 }

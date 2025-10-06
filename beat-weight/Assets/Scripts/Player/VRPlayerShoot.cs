@@ -4,9 +4,16 @@ using UnityEngine.InputSystem;
 public class VRTriggerShoot : MonoBehaviour
 {
     [Header("References")]
-    public Transform muzzle;
+    public Transform leftmuzzle;
+    public Transform rightmuzzle;
+    private Transform muzzle => handManager.activeHand == HandManager.Hand.Left ? rightmuzzle : leftmuzzle;
     public GameObject bulletPrefab;
-    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor;
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor LeftRayInteractor;
+    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor RightRayInteractor;
+    private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor => handManager.activeHand == HandManager.Hand.Left ? RightRayInteractor : LeftRayInteractor;
+
+    [Header("Hand Manager")]
+    public HandManager handManager;
 
     public DataManager dataManager;
 
@@ -24,8 +31,11 @@ public class VRTriggerShoot : MonoBehaviour
 
     private void OnEnable()
     {
-        _triggerAction = new InputAction("Trigger", binding: "<XRController>{RightHand}/trigger");
-        _triggerAction.AddBinding("<OculusTouchController>{RightHand}/trigger");
+        if (handManager.activeHand == HandManager.Hand.Left)
+            _triggerAction = new InputAction("Trigger", binding: "<XRController>{RightHand}/trigger");
+        else
+            _triggerAction = new InputAction("Trigger", binding: "<XRController>{LeftHand}/trigger");
+        
         _triggerAction.Enable();
     }
 
