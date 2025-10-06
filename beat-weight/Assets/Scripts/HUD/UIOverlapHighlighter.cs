@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class UIOverlapHighlighter : MonoBehaviour
     public RectTransform circleRT;       // the small moving circle
     public RectTransform hitZoneRT;      // the small contact zone under/near the bicep
     public Image bicepImage;
+    public Boolean correctForm = false;
 
     [Header("Colors (0..1 alpha!)")]
     public Color activeColor   = new Color(1, 1, 1, 1);   // visible
@@ -37,6 +39,7 @@ public class UIOverlapHighlighter : MonoBehaviour
             : (inter.width * inter.height) / (circle.width * circle.height);
 
         bool touching = coverage >= requireCircleCoverage;
+        correctForm = touching;
         bicepImage.color = touching ? activeColor : inactiveColor;
     }
 
