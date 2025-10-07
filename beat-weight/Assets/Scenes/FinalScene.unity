@@ -16722,6 +16722,7 @@ MonoBehaviour:
   believerClip: {fileID: 8300000, guid: ce88f9d4b7ac656439c1374cf7458152, type: 3}
   gameScript: {fileID: 99180862}
   spawner: {fileID: 77100860}
+  followCurveBPM: {fileID: 99180863}
 --- !u!224 &2093670034
 RectTransform:
   m_ObjectHideFlags: 0
