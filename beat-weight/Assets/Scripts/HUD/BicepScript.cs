@@ -97,7 +97,7 @@ public class CurlHUDAnimator : MonoBehaviour
     //     BicepImage.color = ActiveColor;
     //     Debug.Log("Trigger Entered");
     // }
-    
+
     // private void OnTriggerExit2D(Collider2D collision)
     // {
     //     Color c = ActiveColor;

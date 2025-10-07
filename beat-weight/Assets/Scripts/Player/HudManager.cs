@@ -23,18 +23,22 @@ public class ControllerHeightsToDots : MonoBehaviour
     private float _max = float.NegativeInfinity;
 
     private Transform ControllerVisual;
-    private RectTransform selectedDot;
+    public RectTransform selectedDot;
 
-    void Start() { 
-        if(handManager.activeHand == HandManager.Hand.Left) {
+    void Start()
+    {
+        if (handManager.activeHand == HandManager.Hand.Left)
+        {
             ControllerVisual = leftControllerVisual;
             selectedDot = leftDot;
-        } else {
+        }
+        else
+        {
             ControllerVisual = rightControllerVisual;
             selectedDot = rightDot;
         }
 
-     }
+    }
 
     void Update()
     {
