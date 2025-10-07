@@ -4,6 +4,8 @@ public class FollowCurveBPM : MonoBehaviour
 {
     [Header("Curve and Movement")]
     public BezierCurve curve;
+    public Transform objectToMove;
+    public BeatHandSyncController handSyncController;
     [Range(30f, 240f)] public float bpm = 120f;   // beats per minute
     [Min(0f)] public float delay = 0f;
 
@@ -26,6 +28,8 @@ public class FollowCurveBPM : MonoBehaviour
     void OnEnable()
     {
         ResetLeg(Leg.Up);
+        currentrep = 0;
+        legElapsed = 0f;
     }
 
     void Update()
@@ -50,7 +54,7 @@ public class FollowCurveBPM : MonoBehaviour
         float t = (currentLeg == Leg.Up) ? legT : (1f - legT);
         float tSmooth = smoothMotion ? Mathf.SmoothStep(0f, 1f, t) : t;
 
-        transform.position = curve.GetPoint(tSmooth);
+        objectToMove.position = curve.GetPoint(tSmooth);
 
         // Leg finished? swap legs
         if (legT >= 1f - Mathf.Epsilon)
@@ -62,6 +66,7 @@ public class FollowCurveBPM : MonoBehaviour
                 if (maxreps > 0 && currentrep >= maxreps)
                 {
                     enabled = false;
+                    handSyncController.enabled = false;
                     return;
                 }
             }
