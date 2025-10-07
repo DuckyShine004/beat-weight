@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
         gameScript.offset = -4.4f;
         spawner.bpm = 125f;
         spawner.delay = -1.4f;
-        timer.timerDuration = 9f;
+        timer.timerDuration = 69f;
         endScreen.songName = "Believer - Imagine Dragons";
         musicSource.Play();
     }
