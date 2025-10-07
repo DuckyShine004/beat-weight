@@ -5275,6 +5275,8 @@ MonoBehaviour:
   believerClip: {fileID: 0}
   gameScript: {fileID: 0}
   spawner: {fileID: 0}
+  timer: {fileID: 0}
+  endScreen: {fileID: 0}
 --- !u!1001 &82664499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8949,7 +8951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1832725902
 MonoBehaviour:
   m_ObjectHideFlags: 0
