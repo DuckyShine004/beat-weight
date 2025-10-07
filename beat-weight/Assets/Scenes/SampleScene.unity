@@ -5269,7 +5269,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicSource: {fileID: 80363470}
-  mainSong: {fileID: 8300000, guid: a8fb4b2fb3e1b8849a2eda7451d6d243, type: 3}
+  goldenClip: {fileID: 8300000, guid: 22f8e8c794c06794b9109c51c582106d, type: 3}
+  livinOnAPrayerClip: {fileID: 0}
+  rockThatBodyClip: {fileID: 0}
+  believerClip: {fileID: 0}
+  gameScript: {fileID: 0}
+  spawner: {fileID: 0}
 --- !u!1001 &82664499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7311,6 +7316,7 @@ MonoBehaviour:
   upBeatBlock: {fileID: 872761619215769272, guid: b2bf063299cc20f4e9629c00f78999c4, type: 3}
   downBeatBlock: {fileID: 872761619215769272, guid: 6d12b8a9bbdb13547a1dffc07facf892, type: 3}
   spawnRate: 1.951
+  bpm: 0
   delay: 0
 --- !u!4 &829260204 stripped
 Transform:
@@ -8541,9 +8547,6 @@ RectTransform:
   m_Children:
   - {fileID: 1747269356}
   - {fileID: 80363469}
-  - {fileID: 1172747840}
-  - {fileID: 948509571}
-  - {fileID: 1123329344}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -8706,7 +8709,7 @@ GameObject:
   - component: {fileID: 1652920479}
   - component: {fileID: 1652920478}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: ProfileImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
