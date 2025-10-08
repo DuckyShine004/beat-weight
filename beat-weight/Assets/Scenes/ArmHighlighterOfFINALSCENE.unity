@@ -1162,17 +1162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a614efb25d34425cbd07e62494584ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftmuzzle: {fileID: 11328520}
-  rightmuzzle: {fileID: 2047931553}
+  fireOrigin: {fileID: 2117708720}
   bulletPrefab: {fileID: 1141824007447740269, guid: 3ab50f00d5c27451187e0a72b2b78414, type: 3}
-  LeftRayInteractor: {fileID: 808522282}
-  RightRayInteractor: {fileID: 1873688662}
-  handManager: {fileID: 943430932}
-  dataManager: {fileID: 2091474366}
   bulletSpeed: 10.9
-  fallbackDistance: 50
-  rotationForce: 113
-  fireThreshold: 0.75
+  spinTorque: 20
 --- !u!114 &99180862
 MonoBehaviour:
   m_ObjectHideFlags: 0
