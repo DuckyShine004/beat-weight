@@ -1255,6 +1255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataManager: {fileID: 2091474366}
+  handManager: {fileID: 0}
   ammoDependentObjects:
   - {fileID: 2141390808}
   - {fileID: 548551640}
@@ -1265,7 +1266,10 @@ MonoBehaviour:
   - {fileID: 840108741}
   - {fileID: 1257546464}
   - {fileID: 508580163}
-  noAmmoFallback: {fileID: 0}
+  noAmmoFallbackLeft: {fileID: 0}
+  oneAmmoFallbackLeft: {fileID: 0}
+  noAmmoFallbackRight: {fileID: 0}
+  oneAmmoFallbackRight: {fileID: 0}
 --- !u!114 &99180861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,9 +1282,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a614efb25d34425cbd07e62494584ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 0}
+  leftmuzzle: {fileID: 0}
+  rightmuzzle: {fileID: 0}
   bulletPrefab: {fileID: 1141824007447740269, guid: 3ab50f00d5c27451187e0a72b2b78414, type: 3}
-  rayInteractor: {fileID: 0}
+  LeftRayInteractor: {fileID: 0}
+  RightRayInteractor: {fileID: 0}
+  handManager: {fileID: 0}
   dataManager: {fileID: 2091474366}
   bulletSpeed: 10.9
   fallbackDistance: 50
@@ -1298,8 +1305,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handManager: {fileID: 0}
+  left:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
+  right:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
   barArea: {fileID: 1547800612}
-  watchedDot: {fileID: 0}
   beatDot: {fileID: 22878084}
   bpm: 126
   offset: -2.07
@@ -1308,9 +1325,6 @@ MonoBehaviour:
   beatDown: 4
   holdbeatsTop: 0
   holdbeatsBottom: 0
-  handAnchor: {fileID: 0}
-  topVariant: {fileID: 0}
-  bottomVariant: {fileID: 0}
   topThreshold: 0.8
   bottomThreshold: 0.2
   hysteresis: 0.05
@@ -3101,11 +3115,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftControllerVisual: {fileID: 808522286}
   rightControllerVisual: {fileID: 1873688663}
+  handManager: {fileID: 0}
   barArea: {fileID: 1547800612}
   leftDot: {fileID: 1149491597}
   rightDot: {fileID: 1852160971}
   setTopKey: 117
   setBottomKey: 98
+  selectedDot: {fileID: 0}
 --- !u!4 &419623434
 Transform:
   m_ObjectHideFlags: 0
@@ -3135,9 +3151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a614efb25d34425cbd07e62494584ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  muzzle: {fileID: 0}
+  leftmuzzle: {fileID: 0}
+  rightmuzzle: {fileID: 0}
   bulletPrefab: {fileID: 1141824007447740269, guid: 3ab50f00d5c27451187e0a72b2b78414, type: 3}
-  rayInteractor: {fileID: 0}
+  LeftRayInteractor: {fileID: 0}
+  RightRayInteractor: {fileID: 0}
+  handManager: {fileID: 0}
   dataManager: {fileID: 0}
   bulletSpeed: 10.9
   fallbackDistance: 50
@@ -3155,8 +3174,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b18fecc9baba4b47bb08d03750c7ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handManager: {fileID: 0}
+  left:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
+  right:
+    handDot: {fileID: 0}
+    handAnchor: {fileID: 0}
+    topVariant: {fileID: 0}
+    bottomVariant: {fileID: 0}
   barArea: {fileID: 1547800612}
-  watchedDot: {fileID: 0}
   beatDot: {fileID: 0}
   bpm: 126
   offset: -2.07
@@ -3165,9 +3194,6 @@ MonoBehaviour:
   beatDown: 4
   holdbeatsTop: 0
   holdbeatsBottom: 0
-  handAnchor: {fileID: 0}
-  topVariant: {fileID: 0}
-  bottomVariant: {fileID: 0}
   topThreshold: 0.8
   bottomThreshold: 0.2
   hysteresis: 0.05
@@ -10587,6 +10613,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d525ba853e75d4fa2f0b6dafe77c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeHand: 0
+  leftGameObjects: []
+  rightGameObjects: []
+  leftScripts: []
+  rightScripts: []
 --- !u!114 &943430933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10599,6 +10630,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6fc56339cdb9542a84dc290df70b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handManager: {fileID: 943430932}
+  leftHand: {fileID: 1976618966}
+  rightHand: {fileID: 1404007132}
+  head: {fileID: 2117708720}
+  mirrorKey: 109
 --- !u!4 &943430934
 Transform:
   m_ObjectHideFlags: 0
@@ -17552,6 +17588,7 @@ MonoBehaviour:
   spawner: {fileID: 77100860}
   timer: {fileID: 76300979}
   endScreen: {fileID: 1773643797}
+  followCurveBPM: {fileID: 0}
 --- !u!224 &2093670034
 RectTransform:
   m_ObjectHideFlags: 0

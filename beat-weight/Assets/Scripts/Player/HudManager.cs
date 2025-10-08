@@ -6,6 +6,9 @@ public class ControllerHeightsToDots : MonoBehaviour
     public Transform leftControllerVisual;      // optional
     public Transform rightControllerVisual;     // optional
 
+    [Header("Hand Manager")]
+    public HandManager handManager;
+
     [Header("UI")]
     public RectTransform barArea;               // vertical track (parent)
     public RectTransform leftDot;               // optional (acts as indicator)
@@ -19,6 +22,24 @@ public class ControllerHeightsToDots : MonoBehaviour
     private float _min = float.PositiveInfinity;
     private float _max = float.NegativeInfinity;
 
+    private Transform ControllerVisual;
+    public RectTransform selectedDot;
+
+    void Start()
+    {
+        if (handManager.activeHand == HandManager.Hand.Left)
+        {
+            ControllerVisual = leftControllerVisual;
+            selectedDot = leftDot;
+        }
+        else
+        {
+            ControllerVisual = rightControllerVisual;
+            selectedDot = rightDot;
+        }
+
+    }
+
     void Update()
     {
         if (!barArea) return;
@@ -27,21 +48,20 @@ public class ControllerHeightsToDots : MonoBehaviour
         if (Input.GetKeyDown(setTopKey)) SetTopToCurrent();
         if (Input.GetKeyDown(setBottomKey)) SetBottomToCurrent();
 
-        if (leftDot && leftControllerVisual) SetDotY(leftDot, leftControllerVisual.position.y);
-        if (rightDot && rightControllerVisual) SetDotY(rightDot, rightControllerVisual.position.y);
+        if (ControllerVisual && selectedDot) SetDotY(selectedDot, ControllerVisual.position.y);
     }
 
     // ----- Calibration -----
     public void SetTopToCurrent()
     {
-        if (leftControllerVisual)
-            _max = leftControllerVisual.position.y;
+        if (ControllerVisual)
+            _max = ControllerVisual.position.y;
     }
 
     public void SetBottomToCurrent()
     {
-        if (leftControllerVisual)
-            _min = leftControllerVisual.position.y;
+        if (ControllerVisual)
+            _min = ControllerVisual.position.y;
     }
 
     [ContextMenu("Reset Calibration")]
