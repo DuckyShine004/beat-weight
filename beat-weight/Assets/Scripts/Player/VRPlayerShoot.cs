@@ -3,90 +3,60 @@ using UnityEngine.InputSystem;
 
 public class VRTriggerShoot : MonoBehaviour
 {
-    [Header("References")]
-    public Transform leftmuzzle;
-    public Transform rightmuzzle;
-    private Transform muzzle => handManager.activeHand == HandManager.Hand.Left ? rightmuzzle : leftmuzzle;
-    public GameObject bulletPrefab;
-    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor LeftRayInteractor;
-    public UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor RightRayInteractor;
-    private UnityEngine.XR.Interaction.Toolkit.Interactors.XRRayInteractor rayInteractor => handManager.activeHand == HandManager.Hand.Left ? RightRayInteractor : LeftRayInteractor;
-
-    [Header("Hand Manager")]
-    public HandManager handManager;
-
-    public DataManager dataManager;
+    [Header("Refs")]
+    public Transform fireOrigin;       // optional; defaults to this.transform
+    public GameObject bulletPrefab;    // must have a Rigidbody
 
     [Header("Ballistics")]
     public float bulletSpeed = 20f;
-    public float fallbackDistance = 50f;
+    public float spinTorque = 20f;
 
-    public float rotationForce = 20f;
-
-    [Header("Trigger Settings")]
-    [Range(0f, 1f)] public float fireThreshold = 0.75f;
-
-    private InputAction _triggerAction;
-    private bool _wasPressed = false;
-
-    private void OnEnable()
+    public void ShootStraight()
     {
-        if (handManager.activeHand == HandManager.Hand.Left)
-            _triggerAction = new InputAction("Trigger", binding: "<XRController>{RightHand}/trigger");
-        else
-            _triggerAction = new InputAction("Trigger", binding: "<XRController>{LeftHand}/trigger");
+        var origin = fireOrigin ? fireOrigin : transform;
+        if (!bulletPrefab) return;
         
-        _triggerAction.Enable();
-    }
+        origin.position -= Vector3.up * 0.1f;
 
-    private void OnDisable()
-    {
-        _triggerAction.Disable();
-        _triggerAction.Dispose();
-    }
-
-    private void Update()
-    {
-        if (!_triggerAction.enabled || !muzzle || !bulletPrefab || !rayInteractor) return;
-
-        float value = _triggerAction.ReadValue<float>();
-        bool isPressed = value >= fireThreshold;
-
-        if (isPressed && !_wasPressed && dataManager.ammo > 0)
-        {
-            dataManager.ammo--;
-            ShootAlongLine();
-        }
-
-        _wasPressed = isPressed;
-    }
-
-    private void ShootAlongLine()
-    {
-        Vector3 aimPoint;
-
-        // Use the same ray as the XR Interactor Line Visual
-        if (rayInteractor.TryGetCurrent3DRaycastHit(out RaycastHit hit))
-            aimPoint = hit.point;
-        else
-            aimPoint = muzzle.position + rayInteractor.transform.forward * fallbackDistance;
-
-        Vector3 dir = (aimPoint - muzzle.position).normalized;
-
-        GameObject bullet = Instantiate(bulletPrefab, muzzle.position, Quaternion.LookRotation(dir));
+        var bullet = Instantiate(bulletPrefab, origin.position, origin.rotation);
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-
-            rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
-
-            // 🎯 Add spin here
-            rb.AddTorque(Random.insideUnitSphere * rotationForce, ForceMode.Impulse);
-        }
-        else
-        {
-            Debug.LogWarning("Bullet prefab needs a Rigidbody.");
+            rb.AddForce(origin.forward * bulletSpeed, ForceMode.Impulse);
+            rb.AddTorque(Random.insideUnitSphere * spinTorque, ForceMode.Impulse);
         }
     }
+
+    // Optional: shoot in an explicit direction
+    public void ShootDir(Vector3 dir)
+    {
+        var origin = fireOrigin ? fireOrigin : transform;
+        if (!bulletPrefab) return;
+        origin.position -= Vector3.up * 0.1f;
+
+        dir = dir.sqrMagnitude > 1e-6f ? dir.normalized : origin.forward;
+        var bullet = Instantiate(bulletPrefab, origin.position, Quaternion.LookRotation(dir));
+        if (bullet.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
+            rb.AddTorque(Random.insideUnitSphere * spinTorque, ForceMode.Impulse);
+        }
+    }
+
+    // worldDir = direction in WORLD space (doesn't need to be normalized)
+    public void ShootWorldDir(Vector3 worldDir)
+    {
+        var origin = fireOrigin ? fireOrigin : transform;
+        if (!bulletPrefab) return;
+        origin.position -= Vector3.up * 0.4f;
+        Vector3 dir = worldDir.sqrMagnitude < 1e-6f ? origin.forward : worldDir.normalized;
+
+        var bullet = Instantiate(bulletPrefab, origin.position, Quaternion.LookRotation(dir));
+        if (bullet.TryGetComponent<Rigidbody>(out var rb))
+            rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
+    }
+
 }

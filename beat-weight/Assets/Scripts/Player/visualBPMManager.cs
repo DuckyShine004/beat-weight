@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BeatHandSyncController : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class BeatHandSyncController : MonoBehaviour
         public GameObject topVariant;        // shown when in TOP zone for THIS hand
         public GameObject bottomVariant;     // shown when in BOTTOM zone for THIS hand
     }
+    [Header("Arm Highlighter")]
+    public  Color correctFormColor = new Color(0f, 1f, 0f, 0.5f);
+    public  Color incorrectFormColor = new Color(1f, 0f, 0f, 0.5f);
+    public Image bicepImage;  // assign your arm highlighter image here
 
     [Header("Hand Selection")]
     public HandManager handManager;           // assign your HandManager
@@ -48,7 +53,6 @@ public class BeatHandSyncController : MonoBehaviour
     public float ammoCooldown = 0.25f;
 
     [Header("SCORING MODE")]
-    public bool useContinuousScoring = false;  // set false if you only want per-beat scoring
     public bool usePerBeatScoring = true;      // enable per-beat pulses
 
     [Header("Continuous Scoring")]
@@ -130,16 +134,10 @@ public class BeatHandSyncController : MonoBehaviour
             _scoreSinceLastAmmo = 0f; // reset score accumulator on each beat cycle
         }
 
-        // 5) CONTINUOUS scoring (optional)
-        if (useContinuousScoring)
-        {
-            float distance = Mathf.Abs(tWatched - tBeat);
-            float nd = Mathf.Clamp01(distance / Mathf.Max(1e-5f, scoreWindow));
-            float closeness = 1f - nd; // 1 at perfect
-            float multiplier = Mathf.Clamp01(scoreCurve.Evaluate(closeness));
-            float deltaScore = scoreRateAtPerfect * multiplier * Time.deltaTime;
-            if (deltaScore > 0f) AddScore();
-        }
+        bool isInWindow = Mathf.Abs(tWatched - tBeat) <= scoreWindow;
+        bicepImage.color = isInWindow ? correctFormColor : incorrectFormColor;
+
+        
 
         // 6) PER-BEAT scoring (fires once each beat)
         if (usePerBeatScoring)
@@ -165,7 +163,7 @@ public class BeatHandSyncController : MonoBehaviour
 
         if (topInBeat && !_prevTopInBeat && Time.time >= _lastAmmoTime + ammoCooldown && _scoreSinceLastAmmo >= scoreThresholdForAmmo)
         {
-            GrantAmmo(1);
+            ShootGun();
             _lastAmmoTime = Time.time;
         }
         _prevTopInBeat = topInBeat;
@@ -242,20 +240,11 @@ public class BeatHandSyncController : MonoBehaviour
     }
 
     // ---- Data hooks (no changes to DataManager required) ----
-    private void GrantAmmo(int amount)
+    private void ShootGun()
     {
-        if (!dataManager) return;
-        try
-        {
-            var mi = dataManager.GetType().GetMethod("AddAmmo", new[] { typeof(int) });
-            if (mi != null) { mi.Invoke(dataManager, new object[] { amount }); return; }
-        }
-        catch { }
-        var fi = dataManager.GetType().GetField("ammo");
-        if (fi != null && fi.FieldType == typeof(int)) { fi.SetValue(dataManager, (int)fi.GetValue(dataManager) + amount); return; }
-        var pi = dataManager.GetType().GetProperty("ammo");
-        if (pi != null && pi.CanRead && pi.CanWrite && pi.PropertyType == typeof(int))
-            pi.SetValue(dataManager, (int)pi.GetValue(dataManager) + amount);
+        VRTriggerShoot shooter = GetComponent<VRTriggerShoot>();
+        // Negative z direction is forward
+        if (shooter) shooter.ShootWorldDir(new Vector3(0, 0, -1));
     }
 
     private void AddScore()
