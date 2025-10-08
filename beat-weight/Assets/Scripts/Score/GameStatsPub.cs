@@ -10,18 +10,39 @@ public class GameStatsPub : MonoBehaviour
     public float score { get; private set; }
     public float multiplier { get; private set; }
     public int reps { get; private set; }
+    public int enemiesKilled { get; private set; }
+
+    private const float INITIAL_SCORE = 0.0f;
+    private const float INITIAL_MULTIPLIER = 1.0f;
+    private const int INITIAL_REPS = 0;
+    private const int INITIAL_ENEMIES_KILLED = 0;
+
+    private float highestMultiplier;
 
     public event Action<float> OnScoreChanged;
     public event Action<float> OnMultiplierChanged;
     public event Action<int> OnRepsChanged;
+    public event Action<int> OnEnemiesKilled;
 
     public void Start()
     {
-        SetScore(0.0f);
-        SetMultiplier(1.0f);
-        SetReps(0);
+        SetScore(INITIAL_SCORE);
+        SetMultiplier(INITIAL_MULTIPLIER);
+        SetReps(INITIAL_ENEMIES_KILLED);
+        SetEnemiesKilled(INITIAL_ENEMIES_KILLED);
+
+        highestMultiplier = INITIAL_MULTIPLIER;
     }
 
+    // If the enemy is killed, that means rep was successful
+    public void OnEnemyKilled()
+    {
+        IncrementEnemiesKilled();
+
+        OnSuccessfulRep();
+    }
+
+    // Player might miss enemy on rep
     public void OnSuccessfulRep()
     {
         AddScore();
@@ -56,6 +77,13 @@ public class GameStatsPub : MonoBehaviour
         SetReps(reps);
     }
 
+    private void IncrementEnemiesKilled()
+    {
+        ++enemiesKilled;
+
+        SetEnemiesKilled(enemiesKilled);
+    }
+
     private void SetScore(float score)
     {
         this.score = score;
@@ -67,6 +95,8 @@ public class GameStatsPub : MonoBehaviour
     {
         this.multiplier = multiplier;
 
+        highestMultiplier = Mathf.Max(highestMultiplier, this.multiplier);
+
         OnMultiplierChanged?.Invoke(multiplier);
     }
 
@@ -75,5 +105,12 @@ public class GameStatsPub : MonoBehaviour
         this.reps = reps;
 
         OnRepsChanged?.Invoke(reps);
+    }
+
+    private void SetEnemiesKilled(int enemiesKilled)
+    {
+        this.enemiesKilled = enemiesKilled;
+
+        OnEnemiesKilled?.Invoke(enemiesKilled);
     }
 }
