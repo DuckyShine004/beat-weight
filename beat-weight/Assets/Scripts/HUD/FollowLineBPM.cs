@@ -1,4 +1,7 @@
 using UnityEngine;
+using System.Collections.Generic;
+
+
 
 public class FollowCurveBPM : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class FollowCurveBPM : MonoBehaviour
     [Min(0.01f)] public float beatsUp = 4f;       // beats to go 0 -> 1
     [Min(0.01f)] public float beatsDown = 4f;     // beats to go 1 -> 0
 
+    public Animator animation;
     public int maxreps = 0; // 0 = infinite
     private int currentrep = 0;
 
@@ -55,6 +59,11 @@ public class FollowCurveBPM : MonoBehaviour
         float tSmooth = smoothMotion ? Mathf.SmoothStep(0f, 1f, t) : t;
 
         objectToMove.position = curve.GetPoint(tSmooth);
+        if(tSmooth==0f) {
+            animation.SetTrigger("play");
+            print("pulse");
+            animation.SetTrigger("stop");
+        }
 
         // Leg finished? swap legs
         if (legT >= 1f - Mathf.Epsilon)

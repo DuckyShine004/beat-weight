@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
         gameScript.offset = -2.5f;
         spawner.bpm = 123.5f;
         spawner.delay = 0.5f;
-        followCurveBPM.bpm = 123f;
+        followCurveBPM.bpm = 123.5f;
         followCurveBPM.delay = 2.5f;
         musicSource.Play();
     }
