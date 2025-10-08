@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
                 spawner.delay = 0.2f;
                 timer.timerDuration = 73f;
                 endScreen.songName = "Livin' on a Prayer - Bon Jovi";
-                followCurveBPM.bpm = 123f;
+                followCurveBPM.bpm = 122.5f;
                 followCurveBPM.delay = 2.8f;
                 musicSource.Play();
         }
@@ -67,6 +67,7 @@ public class AudioManager : MonoBehaviour
                 timer.timerDuration = 69f;
                 endScreen.songName = "Believer - Imagine Dragons";
                 followCurveBPM.bpm = 125f;
+                followCurveBPM.delay = 4.4f;
                 musicSource.Play();
         }
 }
