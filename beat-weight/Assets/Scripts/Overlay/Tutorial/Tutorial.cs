@@ -7,7 +7,7 @@ public class Tutorial : MonoBehaviour
 
     [Header("References")]
     [SerializeField]
-    private GameObject startMenu;
+    private GameObject[] affectedObjects;
 
     private int tutorialIndex;
 
@@ -72,7 +72,10 @@ public class Tutorial : MonoBehaviour
     // CALL LAST
     void OnTutorialClose()
     {
-        startMenu.SetActive(true);
+        foreach (var gObject in affectedObjects)
+        {
+            gObject.SetActive(true);
+        }
 
         gameObject.SetActive(false);
     }
