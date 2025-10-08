@@ -163,7 +163,7 @@ public class BeatHandSyncController : MonoBehaviour
 
         if (topInBeat && !_prevTopInBeat && Time.time >= _lastAmmoTime + ammoCooldown && _scoreSinceLastAmmo >= scoreThresholdForAmmo)
         {
-            GrantAmmo(1);
+            ShootGun();
             _lastAmmoTime = Time.time;
         }
         _prevTopInBeat = topInBeat;
@@ -240,20 +240,11 @@ public class BeatHandSyncController : MonoBehaviour
     }
 
     // ---- Data hooks (no changes to DataManager required) ----
-    private void GrantAmmo(int amount)
+    private void ShootGun()
     {
-        if (!dataManager) return;
-        try
-        {
-            var mi = dataManager.GetType().GetMethod("AddAmmo", new[] { typeof(int) });
-            if (mi != null) { mi.Invoke(dataManager, new object[] { amount }); return; }
-        }
-        catch { }
-        var fi = dataManager.GetType().GetField("ammo");
-        if (fi != null && fi.FieldType == typeof(int)) { fi.SetValue(dataManager, (int)fi.GetValue(dataManager) + amount); return; }
-        var pi = dataManager.GetType().GetProperty("ammo");
-        if (pi != null && pi.CanRead && pi.CanWrite && pi.PropertyType == typeof(int))
-            pi.SetValue(dataManager, (int)pi.GetValue(dataManager) + amount);
+        VRTriggerShoot shooter = GetComponent<VRTriggerShoot>();
+        // Negative z direction is forward
+        if (shooter) shooter.ShootWorldDir(new Vector3(0, 0, -1));
     }
 
     private void AddScore()
