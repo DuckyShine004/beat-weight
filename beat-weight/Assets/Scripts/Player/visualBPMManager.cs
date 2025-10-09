@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VisualBPMManager : MonoBehaviour
 {
@@ -12,11 +11,6 @@ public class VisualBPMManager : MonoBehaviour
         public GameObject topVariant; // shown when in TOP zone for THIS hand
         public GameObject bottomVariant; // shown when in BOTTOM zone for THIS hand
     }
-
-    [Header("Arm Highlighter")]
-    public Color correctFormColor = new Color(0f, 1f, 0f, 0.5f);
-    public Color incorrectFormColor = new Color(1f, 0f, 0f, 0.5f);
-    public Image bicepImage; // assign your arm highlighter image here
 
     [Header("Hand Selection")]
     public HandManager handManager; // assign your HandManager
