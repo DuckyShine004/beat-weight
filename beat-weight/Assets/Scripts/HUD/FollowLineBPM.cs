@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FollowCurveBPM : MonoBehaviour
@@ -6,7 +5,7 @@ public class FollowCurveBPM : MonoBehaviour
     [Header("Curve and Movement")]
     public BezierCurve curve;
     public Transform objectToMove;
-    public BeatHandSyncController handSyncController;
+    public VisualBPMManager handSyncController;
 
     [Range(30f, 240f)]
     public float bpm = 120f; // beats per minute
@@ -21,7 +20,7 @@ public class FollowCurveBPM : MonoBehaviour
     [Min(0.01f)]
     public float beatsDown = 4f; // beats to go 1 -> 0
 
-    public Animator animation;
+    public Animator sliderCircleAnimation;
     public int maxreps = 0; // 0 = infinite
     private int currentrep = 0;
     private int previousBeat = -1;
@@ -78,9 +77,9 @@ public class FollowCurveBPM : MonoBehaviour
         {
             if (beat >= 1 && beat <= 4)
             {
-                animation.SetTrigger("play");
+                sliderCircleAnimation.SetTrigger("play");
                 print("pulse");
-                animation.SetTrigger("stop");
+                sliderCircleAnimation.SetTrigger("stop");
             }
 
             previousBeat = beat;
