@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.XR;
 
 public class CurlHUDAnimator2 : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class CurlHUDAnimator2 : MonoBehaviour
     public ControllerHeightsToDots controllerHeightsToDots;
     public HandManager handManager;
     private RectTransform selectedDot;
-
 
     void Start()
     {
@@ -22,11 +20,10 @@ public class CurlHUDAnimator2 : MonoBehaviour
         }
     }
 
-
     void Update()
     {
         // Upper level = 50 and lower = -50
-        Debug.Log(selectedDot?.anchoredPosition.y);
+        // Debug.Log(selectedDot?.anchoredPosition.y);
         if (selectedDot)
         {
             float y = selectedDot.anchoredPosition.y;
@@ -35,7 +32,5 @@ public class CurlHUDAnimator2 : MonoBehaviour
             int frame = Mathf.Clamp(Mathf.RoundToInt(20f - (normalized * 20f)), 1, 20);
             bicepImage.sprite = Resources.Load<Sprite>($"BicepFrames/{frame}");
         }
-
     }
-
 }

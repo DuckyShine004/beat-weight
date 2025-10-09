@@ -3987,6 +3987,37 @@ RectTransform:
   m_AnchoredPosition: {x: 9.2, y: 5.3}
   m_SizeDelta: {x: 99.8, y: 17.14}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &518721692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 518721693}
+  m_Layer: 0
+  m_Name: RestaurantEntrance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &518721693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518721692}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1182557479}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &530952759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11188,7 +11219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carModel: {fileID: 1035417938711677269, guid: bff4e530d867842ceb9a7bd9ceb08083, type: 3}
-  spawnRate: 5.5
+  spawnRate: 5
+  restaurantEntrance: {fileID: 518721692}
 --- !u!1 &943430931
 GameObject:
   m_ObjectHideFlags: 0
@@ -12870,6 +12902,7 @@ Transform:
   - {fileID: 913555050}
   - {fileID: 1941830039}
   - {fileID: 1593335141}
+  - {fileID: 518721693}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1186585562
