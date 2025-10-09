@@ -11431,6 +11431,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1593335143}
+        m_TargetAssemblyTypeName: GameStatsPub, Assembly-CSharp
+        m_MethodName: Reset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &951690435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13136,7 +13148,9 @@ MonoBehaviour:
   cleanupObjects:
   - {fileID: 1827477036}
   - {fileID: 1980628603}
+  audioManager: {fileID: 2093670033}
   gameOverEffect: {fileID: 4554118964096242780, guid: 26b8086e4ab60df8399ed59b8fbb6bf9, type: 3}
+  gameOverSoundEffect: {fileID: 8300000, guid: f1eae187fe7b792a2b9a180de38fb4c4, type: 3}
 --- !u!114 &1187441318
 MonoBehaviour:
   m_ObjectHideFlags: 0

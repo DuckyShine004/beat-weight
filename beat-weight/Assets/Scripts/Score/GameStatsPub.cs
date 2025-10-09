@@ -17,8 +17,6 @@ public class GameStatsPub : MonoBehaviour
     private const int INITIAL_REPS = 0;
     private const int INITIAL_ENEMIES_KILLED = 0;
 
-    private float highestMultiplier;
-
     public event Action<float> OnScoreChanged;
     public event Action<float> OnMultiplierChanged;
     public event Action<int> OnRepsChanged;
@@ -26,12 +24,7 @@ public class GameStatsPub : MonoBehaviour
 
     public void Start()
     {
-        SetScore(INITIAL_SCORE);
-        SetMultiplier(INITIAL_MULTIPLIER);
-        SetReps(INITIAL_ENEMIES_KILLED);
-        SetEnemiesKilled(INITIAL_ENEMIES_KILLED);
-
-        highestMultiplier = INITIAL_MULTIPLIER;
+        Reset();
     }
 
     // If the enemy is killed, that means rep was successful
@@ -49,6 +42,14 @@ public class GameStatsPub : MonoBehaviour
 
         IncrementMultiplier();
         IncrementReps();
+    }
+
+    public void Reset()
+    {
+        SetScore(INITIAL_SCORE);
+        SetMultiplier(INITIAL_MULTIPLIER);
+        SetReps(INITIAL_ENEMIES_KILLED);
+        SetEnemiesKilled(INITIAL_ENEMIES_KILLED);
     }
 
     public void OnFailedRep()
@@ -94,8 +95,6 @@ public class GameStatsPub : MonoBehaviour
     private void SetMultiplier(float multiplier)
     {
         this.multiplier = multiplier;
-
-        highestMultiplier = Mathf.Max(highestMultiplier, this.multiplier);
 
         OnMultiplierChanged?.Invoke(multiplier);
     }

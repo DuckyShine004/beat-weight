@@ -15,8 +15,12 @@ public class TimerScript : MonoBehaviour
     [Header("Cleanup Objects")]
     public GameObject[] cleanupObjects;
 
+    [Header("Audio Manager")]
+    public AudioManager audioManager;
+
     [Header("Game Over Effects")]
     public GameObject gameOverEffect;
+    public AudioClip gameOverSoundEffect;
 
     void Start()
     {
@@ -36,6 +40,8 @@ public class TimerScript : MonoBehaviour
     void PlayGameOverEffects()
     {
         Instantiate(gameOverEffect);
+
+        audioManager.PlaySoundEffect(gameOverSoundEffect);
     }
 
     void OnGameEnd()
