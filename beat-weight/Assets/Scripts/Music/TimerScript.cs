@@ -22,7 +22,6 @@ public class TimerScript : MonoBehaviour
 
     void CleanupScene()
     {
-        //Find all game objects of type EnemyAI
         EnemyAI[] enemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None);
 
         foreach (EnemyAI enemy in enemies)
@@ -36,11 +35,7 @@ public class TimerScript : MonoBehaviour
         endScreen.SetActive(true);
 
         DisableGUI();
-
-        // Perform scene cleanup
         CleanupScene();
-
-        // Finally disable the game
         DisableGame();
     }
 
@@ -60,7 +55,6 @@ public class TimerScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (timer > 0f)
