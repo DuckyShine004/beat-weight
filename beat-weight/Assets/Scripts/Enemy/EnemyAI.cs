@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 

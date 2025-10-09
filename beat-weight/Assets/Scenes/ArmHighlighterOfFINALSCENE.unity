@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd501e567039b584d95eaa13a69a5b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStatsPub: {fileID: 0}
+  gameStatsPub: {fileID: 1593335143}
   scoreText: {fileID: 2102647360}
   songText: {fileID: 258789620}
   repsText: {fileID: 510158834}
@@ -13021,7 +13021,7 @@ GameObject:
   - component: {fileID: 1187441318}
   - component: {fileID: 1187441317}
   m_Layer: 5
-  m_Name: Timer
+  m_Name: EndScreenTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13058,10 +13058,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea36ab5727e2a848bfc29721df5932a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 70
+  timerDuration: 1
   timer: 0
-  endScreen: {fileID: 0}
+  endScreen: {fileID: 204584132}
   timerText: {fileID: 1187441318}
+  guiObjects:
+  - {fileID: 1638016821}
+  cleanupObjects:
+  - {fileID: 1827477036}
+  - {fileID: 1980628603}
 --- !u!114 &1187441318
 MonoBehaviour:
   m_ObjectHideFlags: 0
