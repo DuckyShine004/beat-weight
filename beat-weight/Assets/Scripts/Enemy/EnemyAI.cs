@@ -2,19 +2,16 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [Header("Enemy attributes")]
+    [Header("Enemy Attributes")]
     public float maxEnemyToPlayerDistance;
-
     public float moveSpeed;
     public float health;
-
     public float rayLength;
-
     public LayerMask enemyMask;
-
-    public GameObject player;
-
     public GameObject deathEffect;
+
+    [Header("Player References")]
+    public GameObject player;
 
     private Rigidbody rigidBody;
 
@@ -58,7 +55,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 
@@ -70,6 +67,11 @@ public class EnemyAI : MonoBehaviour
         GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
 
         gameStatsPub.OnEnemyKilled();
+    }
+
+    public bool IsMoving()
+    {
+        return rigidBody.linearVelocity.magnitude > moveSpeed - Mathf.Epsilon;
     }
 
     private bool IsEnemyCloseToPlayer(Vector3 toPlayer)

@@ -20,7 +20,7 @@ public class Tutorial : MonoBehaviour
 
     void OnEnable()
     {
-        ResetTutorialState();
+        ResetTutorial();
 
         UpdateTutorial();
     }
@@ -53,13 +53,13 @@ public class Tutorial : MonoBehaviour
         }
         else
         {
-            ResetTutorialState();
+            ResetTutorial();
 
             OnTutorialClose();
         }
     }
 
-    void ResetTutorialState()
+    void ResetTutorial()
     {
         foreach (var tutorial in tutorials)
         {
