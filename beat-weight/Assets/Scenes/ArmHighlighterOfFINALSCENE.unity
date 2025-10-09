@@ -11231,7 +11231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carModel: {fileID: 1035417938711677269, guid: bff4e530d867842ceb9a7bd9ceb08083, type: 3}
-  spawnRate: 5
+  spawnRate: 4.5
   restaurantEntrance: {fileID: 518721692}
 --- !u!1 &943430931
 GameObject:
@@ -20114,6 +20114,8 @@ MonoBehaviour:
   inactiveColor: {r: 0.24313726, g: 0.28627452, b: 0.8745098, a: 1}
   requireCircleCoverage: 0.2
   paddingPixels: 0
+  curve: {fileID: 425616600}
+  visualBPMManager: {fileID: 99180862}
 --- !u!1 &2047931552
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip rockThatBodyClip;
     public AudioClip believerClip;
 
-    public BeatHandSyncController gameScript;
+    public VisualBPMManager gameScript;
     public BeatBlockSpawner spawner;
     public TimerScript timer;
     public EndScreenScript endScreen;
@@ -78,4 +78,3 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 }
-
