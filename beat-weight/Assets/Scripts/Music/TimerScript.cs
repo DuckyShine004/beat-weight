@@ -15,6 +15,9 @@ public class TimerScript : MonoBehaviour
     [Header("Cleanup Objects")]
     public GameObject[] cleanupObjects;
 
+    [Header("Game Over Effects")]
+    public GameObject gameOverEffect;
+
     void Start()
     {
         timer = timerDuration;
@@ -30,9 +33,16 @@ public class TimerScript : MonoBehaviour
         }
     }
 
+    void PlayGameOverEffects()
+    {
+        Instantiate(gameOverEffect);
+    }
+
     void OnGameEnd()
     {
         endScreen.SetActive(true);
+
+        PlayGameOverEffects();
 
         DisableGUI();
         CleanupScene();

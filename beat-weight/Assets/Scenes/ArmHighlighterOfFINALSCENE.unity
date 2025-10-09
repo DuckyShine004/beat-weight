@@ -13136,6 +13136,7 @@ MonoBehaviour:
   cleanupObjects:
   - {fileID: 1827477036}
   - {fileID: 1980628603}
+  gameOverEffect: {fileID: 4554118964096242780, guid: 26b8086e4ab60df8399ed59b8fbb6bf9, type: 3}
 --- !u!114 &1187441318
 MonoBehaviour:
   m_ObjectHideFlags: 0

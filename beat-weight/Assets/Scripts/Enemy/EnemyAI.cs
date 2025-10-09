@@ -15,8 +15,6 @@ public class EnemyAI : MonoBehaviour
 
     private Rigidbody rigidBody;
 
-    private const double EPSILON = 1e-6;
-
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -73,7 +71,7 @@ public class EnemyAI : MonoBehaviour
 
     public bool IsMoving()
     {
-        return rigidBody.linearVelocity.magnitude > moveSpeed - EPSILON;
+        return rigidBody.linearVelocity.magnitude > moveSpeed - Mathf.Epsilon;
     }
 
     private bool IsEnemyCloseToPlayer(Vector3 toPlayer)
