@@ -78,6 +78,9 @@ public class VisualBPMManager : MonoBehaviour
     public DataManager dataManager; // expects AddScore(float) or score field/property; AddAmmo(int) optional
     private float watchedPosition;
 
+    [Header("Game Stats")]
+    public GameStatsPub gameStatsPub;
+
     // --- internal state ---
     private enum Zone
     {
@@ -195,7 +198,7 @@ public class VisualBPMManager : MonoBehaviour
                 float dist = Mathf.Abs(tWatched - tBeat);
                 if (passTopGate && dist <= perBeatWindow)
                 {
-                    AddScore();
+                    gameStatsPub.OnBeatSync();
                     _scoreSinceLastAmmo += pointsPerBeat;
                 }
                 _lastBeatIndex = currentBeatIndex;
@@ -304,14 +307,5 @@ public class VisualBPMManager : MonoBehaviour
         // Negative z direction is forward
         if (shooter)
             shooter.ShootWorldDir(new Vector3(0, 0, -1));
-    }
-
-    private void AddScore()
-    {
-        GameObject gameStatsObject = GameObject.Find("GameStats");
-
-        GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
-
-        gameStatsPub.OnSuccessfulRep();
     }
 }

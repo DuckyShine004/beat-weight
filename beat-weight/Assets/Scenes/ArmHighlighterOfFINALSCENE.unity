@@ -1360,6 +1360,7 @@ MonoBehaviour:
   requireTopForPerBeat: 0
   scoreThresholdForAmmo: 10
   dataManager: {fileID: 2091474366}
+  gameStatsPub: {fileID: 1593335143}
 --- !u!114 &99180863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11883,7 +11884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carModel: {fileID: 1035417938711677269, guid: bff4e530d867842ceb9a7bd9ceb08083, type: 3}
-  spawnRate: 4.5
+  spawnRate: 4
   restaurantEntrance: {fileID: 518721692}
 --- !u!1 &943430931
 GameObject:
@@ -17546,6 +17547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseScore: 10
+  baseBeatSyncScore: 5
   baseMultiplier: 0.5
 --- !u!1 &1596838883
 GameObject:
