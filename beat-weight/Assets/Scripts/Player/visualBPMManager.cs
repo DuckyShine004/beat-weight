@@ -96,6 +96,21 @@ public class VisualBPMManager : MonoBehaviour
 
     void Start()
     {
+        Reset();
+    }
+
+    void OnEnable()
+    {
+        Reset();
+    }
+
+    void Reset()
+    {
+        _lastBeatIndex = -1;
+        _prevTopInBeat = false;
+        _zone = Zone.Unknown;
+        _scoreSinceLastAmmo = 0f;
+        _lastAmmoTime = -999f;
         _timer = 0f;
 
         watchedPosition = 0f;
@@ -121,7 +136,10 @@ public class VisualBPMManager : MonoBehaviour
     void Update()
     {
         if (!barArea || !watchedDot || !beatDot || bpm <= 0f)
+        {
+            print("ERROR HERE WTF");
             return;
+        }
 
         // 1) Animate beatDot along the bar
         float beatT = ComputeBeat01();

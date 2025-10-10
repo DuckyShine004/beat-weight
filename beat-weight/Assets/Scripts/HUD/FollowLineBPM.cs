@@ -39,11 +39,22 @@ public class FollowCurveBPM : MonoBehaviour
     private float legElapsed = 0f; // seconds elapsed in current leg
     private float legDuration = 0f; // seconds for current leg
 
+    public void Reset()
+    {
+        if (handSyncController)
+        {
+            handSyncController.enabled = true;
+        }
+        enabled = true;
+    }
+
     void OnEnable()
     {
+        print("Enabling again");
         ResetLeg(Leg.Up);
         currentrep = 0;
         legElapsed = 0f;
+        previousBeat = -1;
     }
 
     void Update()
