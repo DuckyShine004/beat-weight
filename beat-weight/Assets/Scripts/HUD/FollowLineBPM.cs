@@ -41,6 +41,11 @@ public class FollowCurveBPM : MonoBehaviour
 
     public void Reset()
     {
+        print("Follow Line BPM Resetting");
+        ResetLeg(Leg.Up);
+        currentrep = 0;
+        legElapsed = 0f;
+        previousBeat = -1;
         if (handSyncController)
         {
             handSyncController.enabled = true;
@@ -50,11 +55,7 @@ public class FollowCurveBPM : MonoBehaviour
 
     void OnEnable()
     {
-        print("Enabling again");
-        ResetLeg(Leg.Up);
-        currentrep = 0;
-        legElapsed = 0f;
-        previousBeat = -1;
+        Reset();
     }
 
     void Update()
