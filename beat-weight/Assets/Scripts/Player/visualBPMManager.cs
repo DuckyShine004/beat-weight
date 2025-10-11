@@ -84,12 +84,10 @@ public class VisualBPMManager : MonoBehaviour
     }
 
     private Zone _zone = Zone.Unknown;
-    private bool _prevTopInBeat = false;
-    private float _lastAmmoTime = -999f;
     private float _timer = 0f;
     private int _lastBeatIndex = -1; // NEW: per-beat pulse tracker
     private int numberOfSyncedBeats;
-    private int numberOfBeats;
+    private bool shootInPreviousRep;
 
     void Start()
     {
@@ -104,11 +102,9 @@ public class VisualBPMManager : MonoBehaviour
     void Reset()
     {
         _lastBeatIndex = -1;
-        _prevTopInBeat = false;
         _zone = Zone.Unknown;
-        _lastAmmoTime = -999f;
-        numberOfBeats = 0;
         numberOfSyncedBeats = 0;
+        shootInPreviousRep = false;
         _timer = 0f;
 
         watchedPosition = 0f;
@@ -129,6 +125,23 @@ public class VisualBPMManager : MonoBehaviour
                 bottomVariant = right.bottomVariant;
             }
         }
+    }
+
+    // Debugging information (TURN OFF IN FINAL)
+    void OnGUI()
+    {
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+
+        GUILayout.BeginArea(new Rect(60, 60, 200, 200), GUI.skin.box);
+
+        string title = "<b>Visual BPM Manager</b>";
+
+        GUILayout.Label(title, new GUIStyle(GUI.skin.label) { richText = true });
+
+        GUILayout.Label($"Number of synced beats: {numberOfSyncedBeats}");
+        GUILayout.Label($"Shoot in previous rep: {shootInPreviousRep}");
+
+        GUILayout.EndArea();
     }
 
     void Update()
@@ -175,50 +188,59 @@ public class VisualBPMManager : MonoBehaviour
         float timeSinceStart = _timer + offset;
         int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
 
+        bool atBottom = false;
+        bool isNewBeat = currentBeatIndex > _lastBeatIndex;
+
         // Check if beat is at the bottom
-        if (currentBeatIndex > _lastBeatIndex && numberOfBeats % 8 == 0)
+        if (isNewBeat && beatAtBottom)
         {
-            if (numberOfSyncedBeats < 4)
+            if (!shootInPreviousRep)
             {
                 gameStatsPub.OnFailedRep();
             }
 
             numberOfSyncedBeats = 0;
+            atBottom = true;
         }
 
         // 6) PER-BEAT scoring (fires once each beat)
         if (usePerBeatScoring)
         {
-            // float timeSinceStart = _timer + offset;
-            //
-            // // robust index against float jitter
-            // int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
-            if (currentBeatIndex > _lastBeatIndex)
+            if (isNewBeat)
             {
                 // A new beat just occurred → evaluate and award if close
                 bool passTopGate = !requireTopForPerBeat || (controllerAtTop && beatAtTop);
+
                 float dist = Mathf.Abs(tWatched - tBeat);
+
                 if (passTopGate && dist <= perBeatWindow)
                 {
                     gameStatsPub.OnBeatSync();
-                    ++numberOfSyncedBeats;
+
+                    // Only increment if not at bottom since beat resets at bottom
+                    if (!atBottom)
+                    {
+                        ++numberOfSyncedBeats;
+                    }
                 }
-                ++numberOfBeats;
+
                 _lastBeatIndex = currentBeatIndex;
             }
         }
 
-        if (
-            topInBeat
-            && !_prevTopInBeat
-            && Time.time >= _lastAmmoTime + ammoCooldown
-            && numberOfSyncedBeats >= 4
-        )
+        // Reset at bottom or at top? Up to you- currently resetting at bottom
+        if (isNewBeat && beatAtTop)
         {
-            ShootGun();
-            _lastAmmoTime = Time.time;
+            if (topInBeat && numberOfSyncedBeats >= 4)
+            {
+                ShootGun();
+                shootInPreviousRep = true;
+            }
+            else
+            {
+                shootInPreviousRep = false;
+            }
         }
-        _prevTopInBeat = topInBeat;
 
         // 7) advance local time
         _timer += Time.deltaTime;

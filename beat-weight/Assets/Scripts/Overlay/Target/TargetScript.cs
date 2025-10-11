@@ -1,29 +1,19 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TargetScript : MonoBehaviour
 {
-
     public bool isInside = false;
     public Temp temp;
     public BeatBlockMove beatBlock;
     public HitTextScript hitTextScript;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+    void Start() { }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Left click detected");
-        }
-
-        if (isInside && Input.GetMouseButtonDown(0) == true)
+        if (isInside && Input.GetMouseButtonDown(0))
         {
             temp.addScore(2);
             hitTextScript.ShowText("Perfect");
@@ -45,7 +35,4 @@ public class TargetScript : MonoBehaviour
     {
         isInside = false;
     }
-
-
-
 }

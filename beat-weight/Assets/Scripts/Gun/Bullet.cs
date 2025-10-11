@@ -23,8 +23,6 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
 
-            print("collided");
-
             EnemyAI enemyAI = other.GetComponent<EnemyAI>();
 
             enemyAI.TakeDamage();

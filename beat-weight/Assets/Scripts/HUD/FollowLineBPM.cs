@@ -41,7 +41,6 @@ public class FollowCurveBPM : MonoBehaviour
 
     public void Reset()
     {
-        print("Follow Line BPM Resetting");
         ResetLeg(Leg.Up);
         currentrep = 0;
         legElapsed = 0f;
@@ -90,7 +89,6 @@ public class FollowCurveBPM : MonoBehaviour
             if (beat >= 1 && beat <= 4)
             {
                 sliderCircleAnimation.SetTrigger("play");
-                print("pulse");
                 sliderCircleAnimation.SetTrigger("stop");
             }
 
