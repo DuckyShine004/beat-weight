@@ -62,17 +62,11 @@ public class VisualBPMManager : MonoBehaviour
     public float scoreRateAtPerfect = 10f; // pts/sec at perfect
     public AnimationCurve scoreCurve = AnimationCurve.EaseInOut(0, 0f, 1, 1f);
 
-    [Header("Per-Beat Scoring")]
-    public float pointsPerBeat = 5f; // points if within window at the beat tick
-
     [Range(0.01f, 1f)]
     public float perBeatWindow = 0.12f; // closeness window for awarding
 
     [Tooltip("If true, only award on beats when both the hand and beat are in the TOP zone.")]
     public bool requireTopForPerBeat = false;
-
-    [Header("Score Ammo Thresholds")]
-    public float scoreThresholdForAmmo = 15f; // award ammo when this much
 
     [Header("Game/Data")]
     public DataManager dataManager; // expects AddScore(float) or score field/property; AddAmmo(int) optional
@@ -94,8 +88,8 @@ public class VisualBPMManager : MonoBehaviour
     private float _lastAmmoTime = -999f;
     private float _timer = 0f;
     private int _lastBeatIndex = -1; // NEW: per-beat pulse tracker
-
-    private float _scoreSinceLastAmmo = 0f;
+    private int numberOfSyncedBeats;
+    private int numberOfBeats;
 
     void Start()
     {
@@ -112,8 +106,9 @@ public class VisualBPMManager : MonoBehaviour
         _lastBeatIndex = -1;
         _prevTopInBeat = false;
         _zone = Zone.Unknown;
-        _scoreSinceLastAmmo = 0f;
         _lastAmmoTime = -999f;
+        numberOfBeats = 0;
+        numberOfSyncedBeats = 0;
         _timer = 0f;
 
         watchedPosition = 0f;
@@ -140,7 +135,6 @@ public class VisualBPMManager : MonoBehaviour
     {
         if (!barArea || !watchedDot || !beatDot || bpm <= 0f)
         {
-            print("ERROR HERE WTF");
             return;
         }
 
@@ -176,21 +170,29 @@ public class VisualBPMManager : MonoBehaviour
         bool topInBeat = controllerAtTop && beatAtTop && closeEnough;
         bool botInBeat = controllerAtBottom && beatAtBottom && closeEnough;
 
-        if (beatAtBottom)
-        {
-            _scoreSinceLastAmmo = 0f; // reset score accumulator on each beat cycle
-        }
+        // Calculating if we are at the bottom beat, bruh use this
+        float beatInterval = 60f / bpm;
+        float timeSinceStart = _timer + offset;
+        int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
 
-        // print("Current position: " + tWatched);
+        // Check if beat is at the bottom
+        if (currentBeatIndex > _lastBeatIndex && numberOfBeats % 8 == 0)
+        {
+            if (numberOfSyncedBeats < 4)
+            {
+                gameStatsPub.OnFailedRep();
+            }
+
+            numberOfSyncedBeats = 0;
+        }
 
         // 6) PER-BEAT scoring (fires once each beat)
         if (usePerBeatScoring)
         {
-            float beatInterval = 60f / bpm;
-            float timeSinceStart = _timer + offset;
-
-            // robust index against float jitter
-            int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
+            // float timeSinceStart = _timer + offset;
+            //
+            // // robust index against float jitter
+            // int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
             if (currentBeatIndex > _lastBeatIndex)
             {
                 // A new beat just occurred → evaluate and award if close
@@ -199,8 +201,9 @@ public class VisualBPMManager : MonoBehaviour
                 if (passTopGate && dist <= perBeatWindow)
                 {
                     gameStatsPub.OnBeatSync();
-                    _scoreSinceLastAmmo += pointsPerBeat;
+                    ++numberOfSyncedBeats;
                 }
+                ++numberOfBeats;
                 _lastBeatIndex = currentBeatIndex;
             }
         }
@@ -209,7 +212,7 @@ public class VisualBPMManager : MonoBehaviour
             topInBeat
             && !_prevTopInBeat
             && Time.time >= _lastAmmoTime + ammoCooldown
-            && _scoreSinceLastAmmo >= scoreThresholdForAmmo
+            && numberOfSyncedBeats >= 4
         )
         {
             ShootGun();

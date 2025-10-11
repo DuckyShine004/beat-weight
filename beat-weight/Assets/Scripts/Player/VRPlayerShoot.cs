@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class VRTriggerShoot : MonoBehaviour
 {
     [Header("Refs")]
-    public Transform fireOrigin;       // optional; defaults to this.transform
-    public GameObject bulletPrefab;    // must have a Rigidbody
+    public Transform fireOrigin; // optional; defaults to this.transform
+    public GameObject bulletPrefab; // must have a Rigidbody
 
     [Header("Ballistics")]
     public float bulletSpeed = 20f;
@@ -14,8 +13,9 @@ public class VRTriggerShoot : MonoBehaviour
     public void ShootStraight()
     {
         var origin = fireOrigin ? fireOrigin : transform;
-        if (!bulletPrefab) return;
-        
+        if (!bulletPrefab)
+            return;
+
         origin.position -= Vector3.up * 0.1f;
 
         var bullet = Instantiate(bulletPrefab, origin.position, origin.rotation);
@@ -32,7 +32,8 @@ public class VRTriggerShoot : MonoBehaviour
     public void ShootDir(Vector3 dir)
     {
         var origin = fireOrigin ? fireOrigin : transform;
-        if (!bulletPrefab) return;
+        if (!bulletPrefab)
+            return;
         origin.position -= Vector3.up * 0.1f;
 
         dir = dir.sqrMagnitude > 1e-6f ? dir.normalized : origin.forward;
@@ -50,7 +51,8 @@ public class VRTriggerShoot : MonoBehaviour
     public void ShootWorldDir(Vector3 worldDir)
     {
         var origin = fireOrigin ? fireOrigin : transform;
-        if (!bulletPrefab) return;
+        if (!bulletPrefab)
+            return;
         origin.position -= Vector3.up * 0.4f;
         Vector3 dir = worldDir.sqrMagnitude < 1e-6f ? origin.forward : worldDir.normalized;
 
@@ -58,5 +60,5 @@ public class VRTriggerShoot : MonoBehaviour
         if (bullet.TryGetComponent<Rigidbody>(out var rb))
             rb.AddForce(dir * bulletSpeed, ForceMode.Impulse);
     }
-
 }
+
