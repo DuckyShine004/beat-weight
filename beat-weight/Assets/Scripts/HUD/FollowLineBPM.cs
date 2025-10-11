@@ -39,11 +39,22 @@ public class FollowCurveBPM : MonoBehaviour
     private float legElapsed = 0f; // seconds elapsed in current leg
     private float legDuration = 0f; // seconds for current leg
 
-    void OnEnable()
+    public void Reset()
     {
         ResetLeg(Leg.Up);
         currentrep = 0;
         legElapsed = 0f;
+        previousBeat = -1;
+        if (handSyncController)
+        {
+            handSyncController.enabled = true;
+        }
+        enabled = true;
+    }
+
+    void OnEnable()
+    {
+        Reset();
     }
 
     void Update()
@@ -78,7 +89,6 @@ public class FollowCurveBPM : MonoBehaviour
             if (beat >= 1 && beat <= 4)
             {
                 sliderCircleAnimation.SetTrigger("play");
-                print("pulse");
                 sliderCircleAnimation.SetTrigger("stop");
             }
 

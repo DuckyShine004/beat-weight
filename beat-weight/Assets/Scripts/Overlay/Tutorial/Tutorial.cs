@@ -25,14 +25,11 @@ public class Tutorial : MonoBehaviour
         UpdateTutorial();
     }
 
-    void Update()
+    public void NextTutorial()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ++tutorialIndex;
+        ++tutorialIndex;
 
-            UpdateTutorial();
-        }
+        UpdateTutorial();
     }
 
     void UpdateTutorial()

@@ -15,13 +15,13 @@ public class AudioManager : MonoBehaviour
     public TimerScript timer;
     public EndScreenScript endScreen;
     public FollowCurveBPM followCurveBPM;
+    public StartDelayTimer startDelayTimer;
 
-    public void PlaySoundEffect(AudioClip audioClip)
+    public void PlaySoundEffect(AudioClip soundEffect)
     {
-        musicSource.PlayOneShot(audioClip);
+        musicSource.PlayOneShot(soundEffect);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void SelectGolden()
     {
         musicSource.clip = goldenClip;
@@ -33,6 +33,7 @@ public class AudioManager : MonoBehaviour
         endScreen.songName = "Golden - HUNTR/X";
         followCurveBPM.bpm = 123.5f;
         followCurveBPM.delay = 2.5f;
+        startDelayTimer.SetDelay(2.5f);
         musicSource.Play();
     }
 
@@ -47,6 +48,7 @@ public class AudioManager : MonoBehaviour
         endScreen.songName = "Livin' on a Prayer - Bon Jovi";
         followCurveBPM.bpm = 122.5f;
         followCurveBPM.delay = 2.8f;
+        startDelayTimer.SetDelay(2.8f);
         musicSource.Play();
     }
 
@@ -61,6 +63,7 @@ public class AudioManager : MonoBehaviour
         endScreen.songName = "Rock That Body - Black Eyed Peas";
         followCurveBPM.bpm = 125f;
         followCurveBPM.delay = 4.0f;
+        startDelayTimer.SetDelay(4.0f);
         musicSource.Play();
     }
 
@@ -75,6 +78,7 @@ public class AudioManager : MonoBehaviour
         endScreen.songName = "Believer - Imagine Dragons";
         followCurveBPM.bpm = 125f;
         followCurveBPM.delay = 4.4f;
+        startDelayTimer.SetDelay(4.4f);
         musicSource.Play();
     }
 }

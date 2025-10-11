@@ -5,6 +5,7 @@ public class GameStatsPub : MonoBehaviour
 {
     [Header("Base game stats")]
     public float baseScore;
+    public float baseBeatSyncScore;
     public float baseMultiplier;
 
     public float score { get; private set; }
@@ -27,7 +28,6 @@ public class GameStatsPub : MonoBehaviour
         Reset();
     }
 
-    // If the enemy is killed, that means rep was successful
     public void OnEnemyKilled()
     {
         IncrementEnemiesKilled();
@@ -35,7 +35,6 @@ public class GameStatsPub : MonoBehaviour
         OnSuccessfulRep();
     }
 
-    // Player might miss enemy on rep
     public void OnSuccessfulRep()
     {
         AddScore();
@@ -57,11 +56,23 @@ public class GameStatsPub : MonoBehaviour
         SetMultiplier(1.0f);
     }
 
+    public void OnBeatSync()
+    {
+        AddBeatSyncScore();
+    }
+
     public void AddScore()
     {
         score += baseScore * multiplier;
 
-        OnScoreChanged?.Invoke(score);
+        SetScore(score);
+    }
+
+    private void AddBeatSyncScore()
+    {
+        score += baseBeatSyncScore;
+
+        SetScore(score);
     }
 
     private void IncrementMultiplier()

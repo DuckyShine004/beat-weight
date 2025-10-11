@@ -27,6 +27,11 @@ public class TimerScript : MonoBehaviour
         timer = timerDuration;
     }
 
+    void OnEnable()
+    {
+        timer = timerDuration;
+    }
+
     void CleanupScene()
     {
         EnemyAI[] enemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None);

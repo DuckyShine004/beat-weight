@@ -28,8 +28,11 @@ public class UIOverlapHighlighter : MonoBehaviour
     void Awake()
     {
         _canvas = circleRT.GetComponentInParent<Canvas>();
+
         if (!bicepImage)
+        {
             bicepImage = hitZoneRT.GetComponentInParent<Image>();
+        }
     }
 
     void Update()
@@ -85,4 +88,3 @@ public class UIOverlapHighlighter : MonoBehaviour
         return Rect.MinMaxRect(xMin, yMin, xMax, yMax);
     }
 }
-

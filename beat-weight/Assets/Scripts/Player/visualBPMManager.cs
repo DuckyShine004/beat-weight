@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class VisualBPMManager : MonoBehaviour
 {
@@ -12,11 +11,6 @@ public class VisualBPMManager : MonoBehaviour
         public GameObject topVariant; // shown when in TOP zone for THIS hand
         public GameObject bottomVariant; // shown when in BOTTOM zone for THIS hand
     }
-
-    [Header("Arm Highlighter")]
-    public Color correctFormColor = new Color(0f, 1f, 0f, 0.5f);
-    public Color incorrectFormColor = new Color(1f, 0f, 0f, 0.5f);
-    public Image bicepImage; // assign your arm highlighter image here
 
     [Header("Hand Selection")]
     public HandManager handManager; // assign your HandManager
@@ -68,21 +62,21 @@ public class VisualBPMManager : MonoBehaviour
     public float scoreRateAtPerfect = 10f; // pts/sec at perfect
     public AnimationCurve scoreCurve = AnimationCurve.EaseInOut(0, 0f, 1, 1f);
 
-    [Header("Per-Beat Scoring")]
-    public float pointsPerBeat = 5f; // points if within window at the beat tick
-
     [Range(0.01f, 1f)]
     public float perBeatWindow = 0.12f; // closeness window for awarding
 
     [Tooltip("If true, only award on beats when both the hand and beat are in the TOP zone.")]
     public bool requireTopForPerBeat = false;
 
-    [Header("Score Ammo Thresholds")]
-    public float scoreThresholdForAmmo = 15f; // award ammo when this much
-
     [Header("Game/Data")]
     public DataManager dataManager; // expects AddScore(float) or score field/property; AddAmmo(int) optional
     private float watchedPosition;
+
+    [Header("Game Stats")]
+    public GameStatsPub gameStatsPub;
+
+    [Header("Debugging")]
+    public bool isDebugging;
 
     // --- internal state ---
     private enum Zone
@@ -93,15 +87,27 @@ public class VisualBPMManager : MonoBehaviour
     }
 
     private Zone _zone = Zone.Unknown;
-    private bool _prevTopInBeat = false;
-    private float _lastAmmoTime = -999f;
     private float _timer = 0f;
     private int _lastBeatIndex = -1; // NEW: per-beat pulse tracker
-
-    private float _scoreSinceLastAmmo = 0f;
+    private int numberOfSyncedBeats;
+    private bool shootInPreviousRep;
 
     void Start()
     {
+        Reset();
+    }
+
+    void OnEnable()
+    {
+        Reset();
+    }
+
+    void Reset()
+    {
+        _lastBeatIndex = -1;
+        _zone = Zone.Unknown;
+        numberOfSyncedBeats = 0;
+        shootInPreviousRep = false;
         _timer = 0f;
 
         watchedPosition = 0f;
@@ -124,10 +130,34 @@ public class VisualBPMManager : MonoBehaviour
         }
     }
 
+    // Debugging information (TURN OFF IN FINAL)
+    void OnGUI()
+    {
+        if (!isDebugging)
+        {
+            return;
+        }
+
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
+
+        GUILayout.BeginArea(new Rect(60, 60, 200, 200), GUI.skin.box);
+
+        string title = "<b>Visual BPM Manager</b>";
+
+        GUILayout.Label(title, new GUIStyle(GUI.skin.label) { richText = true });
+
+        GUILayout.Label($"Number of synced beats: {numberOfSyncedBeats}");
+        GUILayout.Label($"Shoot in previous rep: {shootInPreviousRep}");
+
+        GUILayout.EndArea();
+    }
+
     void Update()
     {
         if (!barArea || !watchedDot || !beatDot || bpm <= 0f)
+        {
             return;
+        }
 
         // 1) Animate beatDot along the bar
         float beatT = ComputeBeat01();
@@ -161,46 +191,64 @@ public class VisualBPMManager : MonoBehaviour
         bool topInBeat = controllerAtTop && beatAtTop && closeEnough;
         bool botInBeat = controllerAtBottom && beatAtBottom && closeEnough;
 
-        if (beatAtBottom)
-        {
-            _scoreSinceLastAmmo = 0f; // reset score accumulator on each beat cycle
-        }
+        // Calculating if we are at the bottom beat, bruh use this
+        float beatInterval = 60f / bpm;
+        float timeSinceStart = _timer + offset;
+        int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
 
-        // print("Current position: " + tWatched);
+        bool atBottom = false;
+        bool isNewBeat = currentBeatIndex > _lastBeatIndex;
+
+        // Check if beat is at the bottom
+        if (isNewBeat && beatAtBottom)
+        {
+            if (!shootInPreviousRep)
+            {
+                gameStatsPub.OnFailedRep();
+            }
+
+            numberOfSyncedBeats = 0;
+            atBottom = true;
+        }
 
         // 6) PER-BEAT scoring (fires once each beat)
         if (usePerBeatScoring)
         {
-            float beatInterval = 60f / bpm;
-            float timeSinceStart = _timer + offset;
-
-            // robust index against float jitter
-            int currentBeatIndex = Mathf.FloorToInt((timeSinceStart + 1e-4f) / beatInterval);
-            if (currentBeatIndex > _lastBeatIndex)
+            if (isNewBeat)
             {
                 // A new beat just occurred → evaluate and award if close
                 bool passTopGate = !requireTopForPerBeat || (controllerAtTop && beatAtTop);
+
                 float dist = Mathf.Abs(tWatched - tBeat);
+
                 if (passTopGate && dist <= perBeatWindow)
                 {
-                    AddScore();
-                    _scoreSinceLastAmmo += pointsPerBeat;
+                    gameStatsPub.OnBeatSync();
+
+                    // Only increment if not at bottom since beat resets at bottom
+                    if (!atBottom)
+                    {
+                        ++numberOfSyncedBeats;
+                    }
                 }
+
                 _lastBeatIndex = currentBeatIndex;
             }
         }
 
-        if (
-            topInBeat
-            && !_prevTopInBeat
-            && Time.time >= _lastAmmoTime + ammoCooldown
-            && _scoreSinceLastAmmo >= scoreThresholdForAmmo
-        )
+        // Reset at bottom or at top? Up to you- currently resetting at bottom
+        if (isNewBeat && beatAtTop)
         {
-            ShootGun();
-            _lastAmmoTime = Time.time;
+            if (topInBeat && numberOfSyncedBeats >= 4)
+            {
+                ShootGun();
+                shootInPreviousRep = true;
+            }
+            else
+            {
+                shootInPreviousRep = false;
+            }
         }
-        _prevTopInBeat = topInBeat;
 
         // 7) advance local time
         _timer += Time.deltaTime;
@@ -292,14 +340,5 @@ public class VisualBPMManager : MonoBehaviour
         // Negative z direction is forward
         if (shooter)
             shooter.ShootWorldDir(new Vector3(0, 0, -1));
-    }
-
-    private void AddScore()
-    {
-        GameObject gameStatsObject = GameObject.Find("GameStats");
-
-        GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
-
-        gameStatsPub.OnSuccessfulRep();
     }
 }
