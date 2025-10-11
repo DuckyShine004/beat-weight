@@ -81,4 +81,64 @@ public class AudioManager : MonoBehaviour
         startDelayTimer.SetDelay(4.4f);
         musicSource.Play();
     }
+
+    public void NSSelectGolden()
+    {
+        musicSource.clip = goldenClip;
+        gameScript.bpm = 115f;
+        gameScript.offset = -4.0f;
+        spawner.bpm = 115.5f;
+        spawner.delay = 0.5f;
+        timer.timerDuration = 80f;
+        endScreen.songName = "Golden - HUNTR/X (NS)";
+        followCurveBPM.bpm = 115.5f;
+        followCurveBPM.delay = 4.0f;
+        startDelayTimer.SetDelay(4.0f);
+        musicSource.Play();
+    }
+
+    public void NSSelectLivinOnAPrayer()
+    {
+        musicSource.clip = livinOnAPrayerClip;
+        gameScript.bpm = 115.5f;
+        gameScript.offset = -2.1f;
+        spawner.bpm = 115f;
+        spawner.delay = 0.2f;
+        timer.timerDuration = 73f;
+        endScreen.songName = "Livin' on a Prayer - Bon Jovi (NS)";
+        followCurveBPM.bpm = 115.5f;
+        followCurveBPM.delay = 2.1f;
+        startDelayTimer.SetDelay(2.1f);
+        musicSource.Play();
+    }
+
+    public void NSSelectRockThatBody()
+    {
+        musicSource.clip = rockThatBodyClip;
+        gameScript.bpm = 115.5f;
+        gameScript.offset = -2.0f;
+        spawner.bpm = 115f;
+        spawner.delay = -1.0f;
+        timer.timerDuration = 72f;
+        endScreen.songName = "Rock That Body - Black Eyed Peas (NS)";
+        followCurveBPM.bpm = 115f;
+        followCurveBPM.delay = 2.0f;
+        startDelayTimer.SetDelay(2.0f);
+        musicSource.Play();
+    }
+
+    public void NSSelectBeliever()
+    {
+        musicSource.clip = believerClip;
+        gameScript.bpm = 115.5f;
+        gameScript.offset = -1.0f;
+        spawner.bpm = 115f;
+        spawner.delay = -1.4f;
+        timer.timerDuration = 69f;
+        endScreen.songName = "Believer - Imagine Dragons (NS)";
+        followCurveBPM.bpm = 115f;
+        followCurveBPM.delay = 1.0f;
+        startDelayTimer.SetDelay(1.0f);
+        musicSource.Play();
+    }
 }
