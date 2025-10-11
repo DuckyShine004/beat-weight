@@ -75,6 +75,9 @@ public class VisualBPMManager : MonoBehaviour
     [Header("Game Stats")]
     public GameStatsPub gameStatsPub;
 
+    [Header("Debugging")]
+    public bool isDebugging;
+
     // --- internal state ---
     private enum Zone
     {
@@ -130,6 +133,11 @@ public class VisualBPMManager : MonoBehaviour
     // Debugging information (TURN OFF IN FINAL)
     void OnGUI()
     {
+        if (!isDebugging)
+        {
+            return;
+        }
+
         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one);
 
         GUILayout.BeginArea(new Rect(60, 60, 200, 200), GUI.skin.box);

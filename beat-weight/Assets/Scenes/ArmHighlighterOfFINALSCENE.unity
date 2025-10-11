@@ -1359,6 +1359,7 @@ MonoBehaviour:
   requireTopForPerBeat: 0
   dataManager: {fileID: 2091474366}
   gameStatsPub: {fileID: 1593335143}
+  isDebugging: 0
 --- !u!114 &99180863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11882,7 +11883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carModel: {fileID: 1035417938711677269, guid: bff4e530d867842ceb9a7bd9ceb08083, type: 3}
-  spawnRate: 4
+  spawnRate: 3.75
   restaurantEntrance: {fileID: 518721692}
 --- !u!1 &943430931
 GameObject:
@@ -17875,7 +17876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1638016822
 Transform:
   m_ObjectHideFlags: 0
