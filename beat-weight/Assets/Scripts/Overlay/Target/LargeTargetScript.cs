@@ -1,7 +1,4 @@
-using Microsoft.Unity.VisualStudio.Editor;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LargeTargetScript : MonoBehaviour
 {

@@ -101,3 +101,10 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Mac generated crash logs
+*._mono*
+
+# Mac generated temp files
+*._Temp*
+
