@@ -10,7 +10,7 @@ Love doing **bicep curls** and playing in **VR**? Then you’ve come to the righ
         - [Hardware Requirements](#hardware-requirements)
         - [VR Requirements](#vr-requirements)
     - [Running the Project](#running-the-project)
-    - [Running the Build](#running-the-build)
+    <!-- - [Running the Build](#running-the-build) -->
 - [Attributions](#attributions)
 - [License](#license)
 - [Showcase](#showcase)
@@ -72,8 +72,8 @@ git clone https://github.com/DuckyShine004/beat-weight.git
 3. Connect your **VR headset** via **Meta Link (OpenXR)**.
 4. Press **Play** in the Unity Editor or build the project using:
 
-### Running the Build
-Alternatively, if you only want to run the build/release version, then follow these steps:
+<!-- ### Running the Build -->
+<!-- Alternatively, if you only want to run the build/release version, then follow these steps: -->
 
 ## Attributions
 All third-party assets, tools, and resources used in this project are properly credited in [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md).
