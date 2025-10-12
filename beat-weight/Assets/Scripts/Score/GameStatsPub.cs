@@ -22,6 +22,7 @@ public class GameStatsPub : MonoBehaviour
     public event Action<float> OnMultiplierChanged;
     public event Action<int> OnRepsChanged;
     public event Action<int> OnEnemiesKilled;
+    public event Action OnFailedRepEvent;
 
     public void Start()
     {
@@ -47,13 +48,15 @@ public class GameStatsPub : MonoBehaviour
     {
         SetScore(INITIAL_SCORE);
         SetMultiplier(INITIAL_MULTIPLIER);
-        SetReps(INITIAL_ENEMIES_KILLED);
+        SetReps(INITIAL_REPS);
         SetEnemiesKilled(INITIAL_ENEMIES_KILLED);
     }
 
     public void OnFailedRep()
     {
         SetMultiplier(1.0f);
+
+        OnFailedRepEvent?.Invoke();
     }
 
     public void OnBeatSync()

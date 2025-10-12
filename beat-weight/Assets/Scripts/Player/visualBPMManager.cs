@@ -90,6 +90,7 @@ public class VisualBPMManager : MonoBehaviour
     private float _timer = 0f;
     private int _lastBeatIndex = -1; // NEW: per-beat pulse tracker
     private int numberOfSyncedBeats;
+    private int numberOfBeats;
     private bool shootInPreviousRep;
 
     void Start()
@@ -109,6 +110,7 @@ public class VisualBPMManager : MonoBehaviour
         numberOfSyncedBeats = 0;
         shootInPreviousRep = false;
         _timer = 0f;
+        numberOfBeats = 0;
 
         watchedPosition = 0f;
         if (handManager)
@@ -202,7 +204,7 @@ public class VisualBPMManager : MonoBehaviour
         // Check if beat is at the bottom
         if (isNewBeat && beatAtBottom)
         {
-            if (!shootInPreviousRep)
+            if (!shootInPreviousRep && numberOfBeats > 0)
             {
                 gameStatsPub.OnFailedRep();
             }
@@ -233,6 +235,7 @@ public class VisualBPMManager : MonoBehaviour
                 }
 
                 _lastBeatIndex = currentBeatIndex;
+                ++numberOfBeats;
             }
         }
 

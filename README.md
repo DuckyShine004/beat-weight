@@ -83,6 +83,8 @@ This project is licensed under the [MIT License](./LICENSE). See the `LICENSE` f
 
 ## Showcase
 
+https://github.com/user-attachments/assets/1cdb5f2a-63a9-4180-94e7-0c1f195abf97
+
 ## Contributors
 
 ### Development Team
