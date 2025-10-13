@@ -1,6 +1,6 @@
 # Attributions
 
-This gives the attributions for Beat Weights, including any assets, including 3D models, music, and other assets we may have used in the development of Beat Weights.
+This document provides attributions for all assets used in the development of **Beat Weights**, including 3D models, music, and other media elements. All assets are used strictly for **non-commercial, educational, and research purposes**.
 
 <!-- ## Table of Contents -->
 <!-- - [Assets](#assets) -->
@@ -22,8 +22,8 @@ The following 3D models are used in **Beat Weights** for non-commercial academic
 | *Rocks* | Quaternius | [Poly Pizza](https://poly.pizza/m/OQvi8PIZ40) | CC-BY 3.0 - used for non-commercial academic research |
 | *Rock* | Quaternius | [Poly Pizza](https://poly.pizza/m/RtLRqYjfMs) | CC-BY 3.0 - used for non-commercial academic research |
 | *Rock* | Danni Bittman | [Poly Pizza](https://poly.pizza/m/4TpBWdzKDf2) | CC-BY 3.0 - used for non-commercial academic research |
-| *Low Poly Tree* | EddeGraphics | [Sketchfab](https://sketchfab.com/3d-models/low-poly-tree-0aa7d3bcb4f6485f855b5142f96158ca) | CC-Y 4.0 - used for non-commercial academic research |
-| *Money* | Yarkov DevBlog | [Sketchfab](https://sketchfab.com/3d-models/money-lowpoly-4ec3d205a919439db5b929ac9ab6e3d7#download) | CC-Y 4.0 - used for non-commercial academic research |
+| *Low Poly Tree* | EddeGraphics | [Sketchfab](https://sketchfab.com/3d-models/low-poly-tree-0aa7d3bcb4f6485f855b5142f96158ca) | CC-BY 4.0 - used for non-commercial academic research |
+| *Money* | Yarkov DevBlog | [Sketchfab](https://sketchfab.com/3d-models/money-lowpoly-4ec3d205a919439db5b929ac9ab6e3d7#download) | CC-BY 4.0 - used for non-commercial academic research |
 
 ### Music
 
