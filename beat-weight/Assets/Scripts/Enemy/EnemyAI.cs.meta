@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 97b1169c99e6ca9ad8a29e72a33768a5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - deathEffect: {fileID: 6492429895777560789, guid: 1ed76536e7cf8cc27a86b8e89df1586d, type: 3}
+  - player: {instanceID: 0}
+  - gameStatsPub: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
