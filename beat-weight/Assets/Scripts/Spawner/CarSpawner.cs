@@ -10,9 +10,8 @@ public class CarSpawner : MonoBehaviour
     [Header("Restaurant Attributes")]
     public GameObject restaurantEntrance;
 
-    private void Start()
-    {
-        timer = 0.0f;
+    private void Start() {
+        SpawnCar();
     }
 
     private bool CanSpawnCar()
@@ -39,18 +38,6 @@ public class CarSpawner : MonoBehaviour
         if (CanSpawnCar())
         {
             Instantiate(carModel, transform.position, transform.rotation);
-        }
-    }
-
-    private void Update()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= spawnRate)
-        {
-            SpawnCar();
-
-            timer = 0.0f;
         }
     }
 }
