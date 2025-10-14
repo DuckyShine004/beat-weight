@@ -240,9 +240,10 @@ public class VisualBPMManager : MonoBehaviour
         }
 
         // Reset at bottom or at top? Up to you- currently resetting at bottom
+        // topInBeat means our current position in beat
         if (isNewBeat && beatAtTop)
         {
-            if (topInBeat && numberOfSyncedBeats >= 4)
+            if (topInBeat && numberOfSyncedBeats >= 3)
             {
                 ShootGun();
                 shootInPreviousRep = true;
@@ -252,6 +253,7 @@ public class VisualBPMManager : MonoBehaviour
                 shootInPreviousRep = false;
             }
         }
+
 
         // 7) advance local time
         _timer += Time.deltaTime;

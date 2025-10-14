@@ -38,7 +38,7 @@ public class TimerScript : MonoBehaviour
 
         foreach (EnemyAI enemy in enemies)
         {
-            enemy.OnDeath();
+            enemy.OnDeath(false);
         }
     }
 

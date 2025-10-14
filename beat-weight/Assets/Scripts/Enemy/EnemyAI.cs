@@ -51,22 +51,29 @@ public class EnemyAI : MonoBehaviour
 
         if (health <= 0)
         {
-            OnDeath();
+            OnDeath(true);
         }
     }
 
-    public void OnDeath()
+    public void OnDeath(bool shouldUpdateGameStats)
     {
         Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
 
-        // Update game stats
-        GameObject gameStatsObject = GameObject.Find("GameStats");
+        if (shouldUpdateGameStats) {
+            GameObject gameStatsObject = GameObject.Find("GameStats");
 
-        GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
+            GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
 
-        gameStatsPub.OnEnemyKilled();
+            gameStatsPub.OnEnemyKilled();
+
+            GameObject carSpawnerObject = GameObject.Find("CarSpawner");
+
+            CarSpawner carSpawner = carSpawnerObject.GetComponent<CarSpawner>();
+
+            carSpawner.SpawnCar();
+        }
     }
 
     public bool IsMoving()
