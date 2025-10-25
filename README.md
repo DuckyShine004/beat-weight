@@ -70,10 +70,19 @@ git clone https://github.com/DuckyShine004/beat-weight.git
 
 2. Open the project in **Unity 6.0** (or newer).
 3. Connect your **VR headset** via **Meta Link (OpenXR)**.
-4. Press **Play** in the Unity Editor.
+4. In the Unity Editor, navigate to `Assets/Scenes/FinalScene` and ensure this scene is selected as the active scene. 
+5. Press **Play** in the Unity Editor.
 
-<!-- ### Running the Build -->
-<!-- Alternatively, if you only want to run the build/release version, then follow these steps: -->
+
+By default, Beat Weights runs assuming you have a VR setup. However, if you’d like to play the game using standard keyboard and mouse controls (via the **XR Interaction Simulator**), follow these steps:
+
+1. Open **Project Settings** in Unity. 
+2. Search for **"XR Interaction Toolkit"**.
+3. Enable the option **"Use XR Interaction Simulator in Scenes"**.
+
+Please refer to the image below for guidance:
+
+![XR Interaction Toolkit Settings](data/readme/images/settings.png)
 
 ## Attributions
 All third-party assets, tools, and resources used in this project are properly credited in [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md).
