@@ -70,7 +70,7 @@ git clone https://github.com/DuckyShine004/beat-weight.git
 
 2. Open the project in **Unity 6.0** (or newer).
 3. Connect your **VR headset** via **Meta Link (OpenXR)**.
-4. Press **Play** in the Unity Editor or build the project using:
+4. Press **Play** in the Unity Editor.
 
 <!-- ### Running the Build -->
 <!-- Alternatively, if you only want to run the build/release version, then follow these steps: -->
