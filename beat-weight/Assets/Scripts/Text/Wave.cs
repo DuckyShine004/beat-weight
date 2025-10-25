@@ -2,6 +2,10 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Applies a wave-like vertical animation to a TextMeshPro (TMP) text component,
+/// giving each character an independent sine-based motion over time.
+/// </summary>
 [RequireComponent(typeof(TMP_Text))]
 public class Wave : MonoBehaviour
 {
@@ -12,12 +16,25 @@ public class Wave : MonoBehaviour
 
     private TMP_Text text;
 
+    /// <summary>
+    /// Caches the TMP_Text component when the object is first initialised.
+    /// </summary>
     void Awake() => text = GetComponent<TMP_Text>();
 
+    /// <summary>
+    /// Starts the text wave animation coroutine when the component is enabled.
+    /// </summary>
     void OnEnable() => StartCoroutine(Animate());
 
+    /// <summary>
+    /// Stops all running coroutines (the animation) when the component is disabled.
+    /// </summary>
     void OnDisable() => StopAllCoroutines();
 
+    /// <summary>
+    /// Coroutine that continuously updates vertex positions of the text mesh
+    /// to create a smooth sine wave motion across characters.
+    /// </summary>
     IEnumerator Animate()
     {
         while (true)
