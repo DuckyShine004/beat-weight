@@ -3,6 +3,11 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Subscribes to <see cref="GameStatsPub"/> events to update the on-screen UI in real time.
+/// Displays the player's score, multiplier, and reps.
+/// Also provides a visual flash effect when a rep fails.
+/// </summary>
 public class GameStatsSub : MonoBehaviour
 {
     [SerializeField]
@@ -29,11 +34,17 @@ public class GameStatsSub : MonoBehaviour
 
     private Color originalColour;
 
+    /// <summary>
+    /// Caches the original text colour when the component is first initialised.
+    /// </summary>
     private void Awake()
     {
         originalColour = scoreText.color;
     }
 
+    /// <summary>
+    /// Subscribes to all <see cref="GameStatsPub"/> events and initialises the UI with current values.
+    /// </summary>
     private void OnEnable()
     {
         gameStatsPub.OnScoreChanged += UpdateScore;
@@ -46,6 +57,10 @@ public class GameStatsSub : MonoBehaviour
         UpdateReps(gameStatsPub.reps);
     }
 
+    /// <summary>
+    /// Updates the displayed score text with a rounded value.
+    /// </summary>
+    /// <param name="score">The latest score value from <see cref="GameStatsPub"/>.</param>
     private void UpdateScore(float score)
     {
         float roundedScore = (float)Math.Round(score, 2);
@@ -53,6 +68,10 @@ public class GameStatsSub : MonoBehaviour
         scoreText.text = $"${roundedScore}";
     }
 
+    /// <summary>
+    /// Updates the displayed multiplier text with a rounded value.
+    /// </summary>
+    /// <param name="multiplier">The latest multiplier value from <see cref="GameStatsPub"/>.</param>
     private void UpdateMultiplier(float multiplier)
     {
         float roundedMultipler = (float)Math.Round(multiplier, 1);
@@ -60,11 +79,18 @@ public class GameStatsSub : MonoBehaviour
         multiplierText.text = $"{roundedMultipler} x";
     }
 
+    /// <summary>
+    /// Updates the displayed rep count.
+    /// </summary>
+    /// <param name="reps">The latest rep count from <see cref="GameStatsPub"/>.</param>
     private void UpdateReps(int reps)
     {
         repText.text = $"{reps}";
     }
 
+    /// <summary>
+    /// Triggers the fail-colour flash effect for all displayed text elements.
+    /// </summary>
     private void FlashAllFailColours()
     {
         StartCoroutine(FlashFailColour(scoreText));
@@ -73,6 +99,10 @@ public class GameStatsSub : MonoBehaviour
         StartCoroutine(FlashFailColour(repText));
     }
 
+    /// <summary>
+    /// Coroutine that flashes a given text element to the fail colour and restores its original colour after a delay.
+    /// </summary>
+    /// <param name="text">The text element to flash.</param>
     private IEnumerator FlashFailColour(TMP_Text text)
     {
         text.color = failColour;

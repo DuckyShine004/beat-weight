@@ -30,7 +30,7 @@ public class CurlHUDAnimator2 : MonoBehaviour
             float normalized = Mathf.InverseLerp(-50f, 50f, y);
             // 40 bicep image frames 1-40
             int frame = Mathf.Clamp(Mathf.RoundToInt(20f - (normalized * 20f)), 1, 20);
-            bicepImage.sprite = Resources.Load<Sprite>($"BicepFrames/{frame}");
+            bicepImage.sprite = Resources.Load<Sprite>($"Textures/BicepFrames/{frame}");
         }
     }
 }

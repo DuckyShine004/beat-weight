@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Controls the in-game tutorial sequence, cycling through tutorial steps (panels or prompts)
+/// and enabling affected gameplay objects once the tutorial ends.
+/// </summary>
 public class Tutorial : MonoBehaviour
 {
     [Header("Tutorial attributes")]
@@ -11,20 +15,30 @@ public class Tutorial : MonoBehaviour
 
     private int tutorialIndex;
 
-    void Start()
+    /// <summary>
+    /// Initialises the tutorial when the game starts by showing the first tutorial step.
+    /// </summary>
+    private void Start()
     {
         tutorialIndex = 0;
 
         UpdateTutorial();
     }
 
-    void OnEnable()
+    /// <summary>
+    /// Resets and restarts the tutorial sequence whenever the object is re-enabled.
+    /// </summary>
+    private void OnEnable()
     {
         ResetTutorial();
 
         UpdateTutorial();
     }
 
+    /// <summary>
+    /// Advances to the next tutorial step.
+    /// Called typically by a UI button or interaction event.
+    /// </summary>
     public void NextTutorial()
     {
         ++tutorialIndex;
@@ -32,7 +46,11 @@ public class Tutorial : MonoBehaviour
         UpdateTutorial();
     }
 
-    void UpdateTutorial()
+    /// <summary>
+    /// Updates the tutorial UI based on the current step index.
+    /// Handles progression, deactivation of previous steps, and completion logic.
+    /// </summary>
+    private void UpdateTutorial()
     {
         if (tutorials.Length == 0)
         {
@@ -56,7 +74,10 @@ public class Tutorial : MonoBehaviour
         }
     }
 
-    void ResetTutorial()
+    /// <summary>
+    /// Resets all tutorial steps to inactive and restarts the index.
+    /// </summary>
+    private void ResetTutorial()
     {
         foreach (var tutorial in tutorials)
         {
@@ -66,8 +87,11 @@ public class Tutorial : MonoBehaviour
         tutorialIndex = 0;
     }
 
-    // CALL LAST
-    void OnTutorialClose()
+    /// <summary>
+    /// Called when the tutorial sequence finishes.
+    /// Re-enables all affected gameplay objects and disables the tutorial system.
+    /// </summary>
+    private void OnTutorialClose()
     {
         foreach (var gObject in affectedObjects)
         {

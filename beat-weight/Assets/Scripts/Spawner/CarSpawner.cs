@@ -1,19 +1,33 @@
 using UnityEngine;
 
+/// <summary>
+/// Handles spawning of cars at a defined rate and position,
+/// ensuring cars only spawn when no stationary enemies block the restaurant entrance.
+/// </summary>
 public class CarSpawner : MonoBehaviour
 {
-    [Header("Spawner Attributes")]
+    [Header("Car Spawner Attributes")]
     public GameObject carModel;
     public float spawnRate;
     private float timer;
 
-    [Header("Restaurant Attributes")]
+    [Header("References")]
     public GameObject restaurantEntrance;
 
-    private void Start() {
+    /// <summary>
+    /// Called when the script starts.
+    /// Immediately spawns the first car.
+    /// </summary>
+    private void Start()
+    {
         SpawnCar();
     }
 
+    /// <summary>
+    /// Checks if it is safe to spawn a new car.
+    /// Returns false if any enemy is stationary and positioned before the restaurant entrance.
+    /// </summary>
+    /// <returns>True if the spawn area is clear; otherwise, false.</returns>
     private bool CanSpawnCar()
     {
         EnemyAI[] enemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None);
@@ -33,6 +47,10 @@ public class CarSpawner : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Attempts to spawn a new car prefab at the spawner's location and rotation.
+    /// Only spawns if the area is clear, as determined by <see cref="CanSpawnCar"/>.
+    /// </summary>
     public void SpawnCar()
     {
         if (CanSpawnCar())
