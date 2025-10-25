@@ -15,10 +15,10 @@ public class CarSpawner : MonoBehaviour
     public GameObject restaurantEntrance;
 
     /// <summary>
-    /// Called when the script starts.
-    /// Immediately spawns the first car.
+    /// Called when the script is enabled.
+    /// Immediately attempts to spawn a car.
     /// </summary>
-    private void Start()
+    private void OnEnable()
     {
         SpawnCar();
     }
