@@ -10,6 +10,7 @@ Love doing **bicep curls** and playing in **VR**? Then you’ve come to the righ
         - [Hardware Requirements](#hardware-requirements)
         - [VR Requirements](#vr-requirements)
     - [Running the Project](#running-the-project)
+    - [Replayability](#replayability)
     <!-- - [Running the Build](#running-the-build) -->
 - [Attributions](#attributions)
 - [License](#license)
@@ -83,6 +84,9 @@ By default, Beat Weights runs assuming you have a VR setup. However, if you’d 
 Please refer to the image below for guidance:
 
 ![XR Interaction Toolkit Settings](data/readme/images/settings.png)
+
+### Replayability
+To play the game again, please stop the game after the results are displayed, then press Play once more. Replayability was not part of the original game requirements, so restarting must be done manually.
 
 ## Attributions
 All third-party assets, tools, and resources used in this project are properly credited in [`ATTRIBUTIONS.md`](./ATTRIBUTIONS.md).
