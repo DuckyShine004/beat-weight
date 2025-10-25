@@ -27,6 +27,11 @@ public class EndScreenScript : MonoBehaviour
         UpdateReps(gameStatsPub.reps);
     }
 
+    public void SetSongName(string name)
+    {
+        songName = name;
+    }
+
     private void UpdateScore(float score)
     {
         float roundedScore = (float)Math.Round(score, 2);
