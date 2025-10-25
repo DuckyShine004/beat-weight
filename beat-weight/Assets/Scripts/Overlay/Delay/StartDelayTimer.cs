@@ -18,6 +18,8 @@ public class StartDelayTimer : MonoBehaviour
     [Header("Hide Objects")]
     public GameObject[] objectsToHide;
 
+    private const float DEFAULT_DELAY = 2.0f;
+
     /// <summary>
     /// Sets the delay duration dynamically (useful for programmatically controlling start times).
     /// </summary>
@@ -36,6 +38,11 @@ public class StartDelayTimer : MonoBehaviour
         foreach (var objectToHide in objectsToHide)
         {
             objectToHide.SetActive(false);
+        }
+
+        if (delay <= Mathf.Epsilon)
+        {
+            delay = DEFAULT_DELAY;
         }
     }
 

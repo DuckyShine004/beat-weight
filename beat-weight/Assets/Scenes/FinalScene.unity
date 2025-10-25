@@ -1924,9 +1924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 2
   timerText: {fileID: 63070863}
-  startGameObjects:
-  - {fileID: 1827477036}
-  - {fileID: 1638016821}
   objectsToHide:
   - {fileID: 240624748}
 --- !u!1 &258789619
@@ -6688,6 +6685,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 204584133}
+        m_TargetAssemblyTypeName: EndScreenScript, Assembly-CSharp
+        m_MethodName: SetSongName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
