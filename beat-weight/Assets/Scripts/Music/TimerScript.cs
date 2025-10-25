@@ -1,6 +1,11 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Manages the countdown timer for the game session.
+/// Displays remaining time, handles end-of-game events,
+/// cleans up active objects, and plays game-over effects.
+/// </summary>
 public class TimerScript : MonoBehaviour
 {
     [Header("Timer Attributes")]
@@ -22,17 +27,26 @@ public class TimerScript : MonoBehaviour
     public GameObject gameOverEffect;
     public AudioClip gameOverSoundEffect;
 
-    void Start()
+    /// <summary>
+    /// Initialises the timer at the start of the game.
+    /// </summary>
+    private void Start()
     {
         timer = timerDuration;
     }
 
-    void OnEnable()
+    /// <summary>
+    /// Resets the timer when the script becomes enabled.
+    /// </summary>
+    private void OnEnable()
     {
         timer = timerDuration;
     }
 
-    void CleanupScene()
+    /// <summary>
+    /// Cleans up all active enemies in the scene by triggering their death logic.
+    /// </summary>
+    private void CleanupScene()
     {
         EnemyAI[] enemies = FindObjectsByType<EnemyAI>(FindObjectsSortMode.None);
 
@@ -42,14 +56,21 @@ public class TimerScript : MonoBehaviour
         }
     }
 
-    void PlayGameOverEffects()
+    /// <summary>
+    /// Spawns the game-over visual effects and plays the corresponding sound.
+    /// </summary>
+    private void PlayGameOverEffects()
     {
         Instantiate(gameOverEffect);
 
         audioManager.PlaySoundEffect(gameOverSoundEffect);
     }
 
-    void OnGameEnd()
+    /// <summary>
+    /// Handles all logic when the game timer reaches zero.
+    /// Displays the end screen, stops gameplay, and triggers cleanup.
+    /// </summary>
+    private void OnGameEnd()
     {
         endScreen.SetActive(true);
 
@@ -60,7 +81,10 @@ public class TimerScript : MonoBehaviour
         DisableGame();
     }
 
-    void DisableGame()
+    /// <summary>
+    /// Disables all gameplay-related objects listed in <see cref="cleanupObjects"/>.
+    /// </summary>
+    private void DisableGame()
     {
         foreach (var cleanupObject in cleanupObjects)
         {
@@ -68,7 +92,10 @@ public class TimerScript : MonoBehaviour
         }
     }
 
-    void DisableGUI()
+    /// <summary>
+    /// Disables all GUI elements listed in <see cref="guiObjects"/>.
+    /// </summary>
+    private void DisableGUI()
     {
         foreach (var guiObject in guiObjects)
         {
@@ -76,7 +103,11 @@ public class TimerScript : MonoBehaviour
         }
     }
 
-    void Update()
+    /// <summary>
+    /// Updates the countdown timer each frame.
+    /// When time runs out, the game ends.
+    /// </summary>
+    private void Update()
     {
         if (timer > 0f)
         {

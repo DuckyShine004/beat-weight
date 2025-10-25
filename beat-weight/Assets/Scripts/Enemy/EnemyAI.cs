@@ -93,10 +93,12 @@ public class EnemyAI : MonoBehaviour
         {
             GameObject gameStatsObject = GameObject.Find("GameStats");
             GameStatsPub gameStatsPub = gameStatsObject.GetComponent<GameStatsPub>();
+
             gameStatsPub.OnEnemyKilled();
 
             GameObject carSpawnerObject = GameObject.Find("CarSpawner");
             CarSpawner carSpawner = carSpawnerObject.GetComponent<CarSpawner>();
+
             carSpawner.SpawnCar();
         }
     }

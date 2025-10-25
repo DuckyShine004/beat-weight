@@ -10,9 +10,6 @@ public class StartDelayTimer : MonoBehaviour
     [SerializeField]
     private TMP_Text timerText;
 
-    [Header("Start Game Attributes")]
-    public GameObject[] startGameObjects;
-
     [Header("Hide Objects")]
     public GameObject[] objectsToHide;
 
@@ -27,11 +24,6 @@ public class StartDelayTimer : MonoBehaviour
         {
             objectToHide.SetActive(false);
         }
-
-        // foreach (var startGameObject in startGameObjects)
-        // {
-        //     startGameObject.SetActive(true);
-        // }
     }
 
     private void UpdateTimer()
